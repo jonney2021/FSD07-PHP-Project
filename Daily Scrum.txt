@@ -7,3 +7,12 @@
 - watch tutorial video
 - setup the initial project
 - setup the database
+
+2023/03/24  Yuanbo
+1. Done since last scrum
+- discussed the topic of project
+- prepared page 3 and page 4 content of proposal
+(use case diagram and destinated final output)
+2. To do until next scrum
+- watch tutorial videos
+
