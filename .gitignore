@@ -46,5 +46,9 @@ Thumbs.db
 *.avi
 *.flv
 *.mov
+<<<<<<< HEAD
 *.wmv
 
+=======
+*.wmv
+>>>>>>> fa0a58d821642d9c325cf720e77ac5210890438b
