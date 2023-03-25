@@ -2,6 +2,7 @@
 1. Done since last scrum
 - discussed the topic of project
 - prepared page 1 and page 2 content of proposal
+(description, features, urls, database design)
 2. To do until next scrum
 - watch tutorial video
 - setup the initial project
