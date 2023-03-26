@@ -15,4 +15,3 @@
 (use case diagram and destinated final output)
 2. To do until next scrum
 - watch tutorial videos
-

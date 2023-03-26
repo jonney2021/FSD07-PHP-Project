@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/style.css"/>
+        <title>{% block title %}{% endblock %} - Tourism Management System</title>
+        {% block addHead %}
+        {% endblock %}
+    </head>
+    <body>
+        <div id="centeredContent">{% block content %}{% endblock %}
+            <div id="footer">
+                {% block footer %}
+                    &copy; Copyright 2011 by <a href="http://tourism.org/">you</a>.
+                {% endblock %}
+            </div>
+        </div>
+    </body>
+</html>
