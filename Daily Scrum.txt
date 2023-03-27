@@ -16,6 +16,17 @@
 2. To do until next scrum
 - watch tutorial videos
 
+2023/03/27 Yeming
+1. Done since last scrum
+- watch tutorial video
+- setup the initial project
+- setup the database
+2. To do until next scrum
+- modify tables as Gregory required in database
+- modify proposal and submit it for approval
+
+
+
 2023/03/27  Yuanbo
 1. Done since last scrum
 -finished watching the tutorial vides last weekend
