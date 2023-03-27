@@ -26,8 +26,6 @@
 - modify tables as Gregory required in database
 - modify proposal and submit it for approval
 
-
-
 2023/03/27  Yuanbo
 1. Done since last scrum
 -finished watching the tutorial vides last weekend
