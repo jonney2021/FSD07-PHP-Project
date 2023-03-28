@@ -16,6 +16,7 @@
 2. To do until next scrum
 - watch tutorial videos
 
+
 2023/03/27 Yeming
 1. Done since last scrum
 - watch tutorial video
@@ -25,6 +26,14 @@
 - modify tables as Gregory required in database
 - modify proposal and submit it for approval
 
+2023/03/27  Yuanbo
+1. Done since last scrum
+-finished watching the tutorial vides last weekend
+-search others vides
+2. To do until next scrum
+- Modify tables as Gregory required in database
+- Modify proposal and submit it for approval
+
 2023/03/28 Yeming
 1. Done since last scrum
 - modify tables as Gregory required in database
@@ -33,3 +42,4 @@
 - user registration
 - user login
 - user logout
+
