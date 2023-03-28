@@ -43,3 +43,13 @@
 - user login
 - user logout
 
+2023/03/28 Yuanbo
+1. Done since last scrum
+- modify tables as Gregory required in database
+- modify proposal and submit it for approval
+2. To do until next scrum
+- test user registration
+- test user login
+- test user logout
+
+
