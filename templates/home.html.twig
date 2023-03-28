@@ -1,0 +1,21 @@
+{% extends "master.html.twig" %}
+
+{% block content %}
+
+    <div class="container">
+        {% if session.user %}
+            <p>Welcome back, {{ session.user.username }}!</p>
+            <a href="/logout">Logout</a>
+        {% else %}
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+        {% endif %}
+
+        <h1>Welcome to the Tourism Management Homepage</h1>
+        <p>Some content here...</p>       
+    </div>
+
+{% endblock %}
+
+
+

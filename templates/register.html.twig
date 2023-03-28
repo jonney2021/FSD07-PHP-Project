@@ -1,0 +1,54 @@
+{% extends "master.html.twig" %}
+
+{% block addHead %}
+
+<!-- prevent to resubmit -->
+<script>
+      if (window.history.replaceState) {
+         window.history.replaceState(null, null, window.location.href);
+      }
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('input[name=username]').keyup(function() {
+        var url = $(location).attr('href');
+        var id = url.substring(url.lastIndexOf('/') +1);
+        var username = $(this).val();
+        console.log("username:" + username);
+        username = encodeURIComponent(username);
+        $('#usernameTaken').load("/isuserexist/" + username);
+    });
+});
+</script>
+
+{% endblock %}
+
+{% block content %}
+
+{% if errorList %}
+    <ul class="errorMessage">
+    {% for error in errorList %}
+        <li>{{error}}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+<h1>New User Registration</h1>
+<form method="post">
+    <div class="form-group"> 
+    Username: <input type="text" name="username" value="{{v.username}}" placeholder="Enter your name"><br>
+    <span id="usernameTaken" class="errorMessage"></span>
+    </div>
+    <div class="form-group"> 
+    Password: <input type="password" name="password" placeholder="Enter your password"><br>
+    </div>
+    <div class="form-group"> 
+    Email: <input type="email" name="email" value="{{v.email}}" placeholder="Enter your email"><br> 
+    </div>
+    <div class="form-group"> 
+    Phone number: <input type="text" name="phoneno" value="{{v.phoneno}}" placeholder="Enter your phone number">  
+    </div> 
+    <button type="submit" class="btn btn-primary">Register</button>
+</form>
+{% endblock content %}
