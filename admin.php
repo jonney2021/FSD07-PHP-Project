@@ -22,7 +22,7 @@ $app->post('/admin/login', function ($request, $response, $args) {
     $username = $data['username'];
     $password = $data['password'];
 
-    $adminRecord = DB::queryFirstRow("SELECT * FROM users where username=%s", $username);
+    $adminRecord = DB::queryFirstRow("SELECT * FROM users where username=%s and role='admin'", $username);
     $loginSuccessful = ($adminRecord != null) && ($adminRecord['password'] == $password);
 
     if (!$loginSuccessful) { //STATE2: login failed
@@ -222,18 +222,6 @@ function startsWith($string, $startString)
     return (substr($string, 0, $len) === $startString);
 }
 // Attach middleware that verifies only admin can access /admin... URLs
-// $app->add(function ($request, $handler) {
-//     $url = $request->getUri()->getPath();
-//     if (startsWith($url, "/admin")) {
-//         if (!isset($_SESSION['admin'])) {
-//             $response = $handler->handle($request);
-//             return $this->get('view')->render($response, 'admin/error_access_denied.html.twig');
-//         }
-//     }
-//     return $handler->handle($request);
-// });
-
-
 $app->add(function ($request, $handler) {
     $url = $request->getUri()->getPath();
     if (startsWith($url, "/admin")) {

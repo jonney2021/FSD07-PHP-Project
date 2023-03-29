@@ -53,7 +53,7 @@ $app->post('/register', function ($request, $response, $args) {
 
     // validate password
     $result = verifyPasswordQuality($password, $passwordrepeat);
-    if ($result != TRUE) {
+    if ($result !== TRUE) {
         $errorList[] = $result;
     }
 
@@ -245,14 +245,14 @@ $app->post('/profile/edit', function ($request, $response, $args) {
 // function return TRUE on success and String describing an issue on failure
 function verifyPasswordQuality($password, $passwordrepeat)
 {
-    if ($passwordrepeat !== $password) {
-        $errorList[] = "Passwords do not match.";
+    if ($passwordrepeat != $password) {
+        return "Passwords do not match.";
     } else {
         if (
-            strlen($password) < 6 || strlen($password) > 100
-            || (preg_match("/[A-Z]/", $password) !== 1)
-            || (preg_match("/[a-z]/", $password) !== 1)
-            || (preg_match("/[0-9]/", $password) !== 1)
+            (strlen($password) < 6) || (strlen($password) > 100)
+            || (preg_match("/[A-Z]/", $password) == FALSE)
+            || (preg_match("/[a-z]/", $password) == FALSE)
+            || (preg_match("/[0-9]/", $password) == FALSE)
         ) {
             return "Password must be 6-100 characters long and contain at least one "
                 . "uppercase letter, one lowercase, and one number.";
