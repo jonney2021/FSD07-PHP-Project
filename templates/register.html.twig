@@ -10,16 +10,24 @@
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script>
+//username
 $(document).ready(function() {
+    //email
     $('input[name=username]').keyup(function() {
-        var url = $(location).attr('href');
-        var id = url.substring(url.lastIndexOf('/') +1);
         var username = $(this).val();
-        console.log("username:" + username);
         username = encodeURIComponent(username);
         $('#usernameTaken').load("/isuserexist/" + username);
     });
+
+    //email
+    $('input[name=email]').keyup(function() {
+        var email = $(this).val();
+        email = encodeURIComponent(email);
+        $('#emailTaken').load("/isemailexist/" + email);
+    });
 });
+
+
 </script>
 
 {% endblock %}
@@ -44,7 +52,11 @@ $(document).ready(function() {
     Password: <input type="password" name="password" placeholder="Enter your password"><br>
     </div>
     <div class="form-group"> 
+    Password (repeated): <input type="password" name="passwordrepeat" placeholder="Enter your password again"><br>
+    </div>
+    <div class="form-group"> 
     Email: <input type="email" name="email" value="{{v.email}}" placeholder="Enter your email"><br> 
+    <span id="emailTaken" class="errorMessage"></span>
     </div>
     <div class="form-group"> 
     Phone number: <input type="text" name="phoneno" value="{{v.phoneno}}" placeholder="Enter your phone number">  

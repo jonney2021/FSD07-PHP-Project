@@ -1,0 +1,26 @@
+{% extends 'master.html.twig' %}
+
+{% block content %}
+    <h3>Profile</h3>
+    <table cellpadding="10">
+        <tr>
+            <th>Name</th>
+            <th>Password</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+        </tr>    
+        <tr>
+            <td>{{user.username}}</td>
+            <td>{{user.password}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.phoneNo}}</td>
+            <td>
+                <a href="/profile/edit"><button type="button" class="btn btn-success">edit</button></a>
+            </td>
+        </tr>
+        <p><a href="/">Back to homepage</a></p>      
+    </table>
+{% endblock %}
+
+
+

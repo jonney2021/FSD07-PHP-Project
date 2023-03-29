@@ -1,0 +1,19 @@
+{% extends "admin/master.html.twig" %}
+
+{% block content %}
+
+{% if error %}
+    <div>{{ error }}</div>
+{% endif %}
+
+<h3>Admin Login</h3>
+<form method="post">
+    <div class="form-group"> 
+    Username: <input type="text" name="username" placeholder="Enter your name"><br>
+    </div>
+    <div class="form-group"> 
+    Password: <input type="password" name="password" placeholder="Enter your password"><br>
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>
+{% endblock content %}

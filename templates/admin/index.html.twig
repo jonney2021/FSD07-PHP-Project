@@ -1,0 +1,17 @@
+{% extends "admin/master.html.twig" %}
+
+{% block title %}Admin dashboard{% endblock %}
+
+{% block content %}
+<h3>Admin main page</h3>
+
+{# {% if session.admin %}
+    <p>Welcome {{ session.admin.username }}!</p>
+    <a href="/admin/logout">Logout</a>
+    <p><a href="/admin/users/list">Manage Users</a></p> #}
+{# {% else %}
+    <a href="/admin/login">Login</a> #}
+{# {% endif %} #}
+<p><a href="/admin/users/list">Manage Users</a></p>
+
+{% endblock content %}

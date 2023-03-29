@@ -25,10 +25,19 @@ $log->pushProcessor(function ($record) {
     return $record;
 });
 
-DB::$dbName = 'tourism';
-DB::$user = 'tourism';
-DB::$password = 'r2Qzy67!n[r*ds-9';
-DB::$host = 'localhost';
+// $log->debug("This is a test message");
+
+//DATABASE SETUP
+if ($_SERVER['SERVER_NAME'] == 'tourism.org') {
+    DB::$dbName = 'tourism';
+    DB::$user = 'tourism';
+    DB::$password = 'r2Qzy67!n[r*ds-9';
+    DB::$host = 'localhost';
+} else { //hosted on external server
+    DB::$dbName = 'cp5065_yeming';
+    DB::$user = 'cp5065_yeming';
+    DB::$password = 'mr{Pf-3_QYa0';
+}
 
 // Create Container
 $container = new Container();

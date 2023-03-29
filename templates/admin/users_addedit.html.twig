@@ -1,0 +1,58 @@
+{% extends "admin/master.html.twig" %}
+
+{% block title %}Update user information{% endblock %}
+
+{% block addHead %}
+
+<!-- prevent to resubmit -->
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>
+{% endblock %}
+
+{% block content %}
+
+{%if op == 'edit' %}
+<h3>Update user information</h3>
+{% else %}
+<h3>Add user information</h3>
+{% endif %}
+
+{% if errorList %}
+    <ul class="errorMessage"> 
+    {% for error in errorList %}
+        <li>{{error}}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+<form method="post">
+    <div class="form-group"> 
+    Username: <input type="text" name="username" value="{{v.username}}" placeholder="Enter your name"><br>
+    <span id="usernameTaken" class="errorMessage"></span>
+    </div>
+    {% if op == 'edit' %}<p>(Only provide password if you're changing it for user)</p>{% endif %}
+    <div class="form-group"> 
+    Password: <input type="password" name="password" placeholder="Enter your password"><br>
+    </div>
+    <div class="form-group"> 
+    Password (repeat): <input type="password" name="passwordrepeat" placeholder="Enter your password"><br>
+    </div>
+    <div class="form-group"> 
+    Email: <input type="email" name="email" value="{{v.email}}" placeholder="Enter your email"><br> 
+    </div>
+    <div class="form-group"> 
+    Phone number: <input type="text" name="phoneno" value="{{v.phoneNo}}" placeholder="Enter your phone number">  
+    </div> 
+    <div class="form-group"> 
+    Role:
+    <input type="radio" id="role1" name="role" value="user" {% if v.role == 'user' %}checked{% endif %}>
+    <label for="role1">user</label>
+    <input type="radio" id="role2" name="role" value="admin" {% if v.role == 'admin' %}checked{% endif %}>
+    <label for="role2">admin</label>
+    </div> 
+    <button type="submit" class="btn btn-primary">{% if op == 'edit'%}Update User{% else %}Add User{% endif %}</button>
+</form>
+{% endblock content %}

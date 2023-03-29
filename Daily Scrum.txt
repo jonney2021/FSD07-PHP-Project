@@ -43,3 +43,14 @@
 - user login
 - user logout
 
+2023/03/29 Yeming
+1. Done since last scrum
+- done user registration
+- done user login
+- done user logout
+2. To do until next scrum
+- show/edit user profile
+- admin CRUD
+
+
+

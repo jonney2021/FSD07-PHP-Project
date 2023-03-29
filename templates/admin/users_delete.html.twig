@@ -1,0 +1,29 @@
+{% extends "admin/master.html.twig" %}
+
+{% block title %}Delete user information{% endblock %}
+
+
+{% block content %}
+
+<h3>Delete user information</h3>
+
+<form method="post">
+    <div class="form-group"> 
+    Username: {{v.username}}<br>
+    </div>
+    <div class="form-group"> 
+    Email: {{v.email}}<br> 
+    </div>
+    <div class="form-group"> 
+    Phone number: {{v.phoneNo}} 
+    </div> 
+    <div class="form-group"> 
+    Role:
+    {{v.role}}  
+    </div> 
+    <br>
+    <h6>Please confirm this action. It is irreversible</h6>
+    <button type="submit" class="btn btn-primary">Yes, delete the user</button>
+</form>
+<a href="/admin/users/list">Cancel and go back to the list</a>
+{% endblock content %}
