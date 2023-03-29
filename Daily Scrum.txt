@@ -61,6 +61,14 @@
 - show/edit user profile
 - admin CRUD
 
-
+2023/03/29 Yuanbo
+- done test user registration
+- done test user login
+- done test user logout
+2. To do until next scrum
+- do configure hosting
+- test show/edit user profile
+- test admin CRUD
+- learn Google analytics
 
 
