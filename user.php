@@ -203,7 +203,7 @@ $app->post('/profile/edit', function ($request, $response, $args) {
 
     // validate password
     $result = verifyPasswordQuality($password, $passwordrepeat);
-    if ($result != TRUE) {
+    if ($result !== TRUE) {
         $errorList[] = $result;
     }
 
