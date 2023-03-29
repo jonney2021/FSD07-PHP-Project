@@ -69,5 +69,6 @@
 - do configure hosting
 - test show/edit user profile
 - test admin CRUD
+- learn Google analytics
 
 
