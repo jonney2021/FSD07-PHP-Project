@@ -86,12 +86,13 @@ $app->get('/admin/users/{op:edit|add}[/{id:[0-9]+}]', function ($request, $respo
 $app->post('/admin/users/{op:edit|add}[/{id:[0-9]+}]', function ($request, $response, $args) {
     $op = $args['op'];
     // either op is add and id is not given or op is edit and id must be given 
-    if (($op == 'add' && !empty($args['id'])) || ($op == 'edit' && empty($op))) {
+    if (($op == 'add' && !empty($args['id'])) || ($op == 'edit' && empty($args['id']))) {
         $response = $response->withStatus(404);
         return $this->get('view')->render($response, 'admin/not_found.html.twig');
     }
     // extract values submitted
     $data = $request->getParsedBody();
+    // print_r($data);
     $username = $data["username"];
     $email = $data["email"];
     $password = $data["password"];
@@ -123,7 +124,7 @@ $app->post('/admin/users/{op:edit|add}[/{id:[0-9]+}]', function ($request, $resp
         // make sure this name is not used by another user
         if ($op == 'edit') { //update
             $existingUser = DB::queryFirstRow("SELECT * FROM users where username=%s AND id !=%i", $username, $args['id']);
-        } else {
+        } else { //add
             $existingUser = DB::queryFirstRow("SELECT * FROM users where username=%s", $username);
         }
         if ($existingUser) {
@@ -138,7 +139,7 @@ $app->post('/admin/users/{op:edit|add}[/{id:[0-9]+}]', function ($request, $resp
             $errorList[] = "Passwords do not match.";
         } else {
             if (
-                strlen($password) < 6 || strlen($password) > 100
+                (strlen($password) < 6) || (strlen($password) > 100)
                 || (preg_match("/[A-Z]/", $password) !== 1)
                 || (preg_match("/[a-z]/", $password) !== 1)
                 || (preg_match("/[0-9]/", $password) !== 1)
@@ -174,8 +175,8 @@ $app->post('/admin/users/{op:edit|add}[/{id:[0-9]+}]', function ($request, $resp
     }
 
     if ($errorList) { // STATE 2: errors
-        $valuesList = ['username' => $username, 'email' => $email, 'phoneno' => $phoneno];
-        return $this->get('view')->render($response, 'register.html.twig', ['errorList' => $errorList, 'v' => $valuesList]);
+        $valuesList = ['username' => $username, 'email' => $email, 'phoneno' => $phoneno, 'role' => $role];
+        return $this->get('view')->render($response, 'admin/users_addedit.html.twig', ['errorList' => $errorList, 'v' => $valuesList]);
     } else { // STATE 3: sucess
         if ($op == 'add') {
             DB::insert('users', [

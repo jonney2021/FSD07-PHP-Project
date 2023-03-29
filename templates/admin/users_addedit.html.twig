@@ -48,7 +48,8 @@
     </div> 
     <div class="form-group"> 
     Role:
-    <input type="radio" id="role1" name="role" value="user" {% if v.role == 'user' %}checked{% endif %}>
+    {# <input type="radio" id="role1" name="role" value="user" {% if v.role == 'user' %}checked{% endif %}> #}
+    <input type="radio" id="role1" name="role" value="user" checked>
     <label for="role1">user</label>
     <input type="radio" id="role2" name="role" value="admin" {% if v.role == 'admin' %}checked{% endif %}>
     <label for="role2">admin</label>
