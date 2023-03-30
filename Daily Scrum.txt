@@ -71,4 +71,11 @@
 - test admin CRUD
 - learn Google analytics
 
-
+2023/03/30 Yeming
+1. Done since last scrum
+- implemented show/edit user profile function
+- implemented admin CRUD function
+- added Google analytics into page  
+2. To do until next scrum
+- admin add tour package information
+- admin edit tour package information
