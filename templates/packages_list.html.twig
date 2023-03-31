@@ -14,6 +14,7 @@
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ package.name }}</h5>
+                    <p class="card-price">${{ package.price }}</p>
                     <p class="card-text">{{ package.details }}</p>
                     <a href="/packages/{{package.id}}/book" class="btn btn-primary">Book</a>
                 </div>

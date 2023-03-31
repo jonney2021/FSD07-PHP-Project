@@ -90,3 +90,14 @@
 - search web materials and modify them to adjust to our website
 - test admin can manage users
 - test verify admin authentication
+
+2023/03/30 Yeming
+1. Done since last scrum
+- implemented admin can add tour package information
+- implemented admin manage tour package information
+- implemented show package list
+- implemented user can book a package
+2. To do until next scrum
+- user can edit his booking
+- improve admin update package function
+- user search tour package

@@ -21,9 +21,9 @@
 
 <h1>Book a tour package</h1>
 
-<h1>{{ package.name }}</h1>
-<p>{{ package.description }}</p>
-<p>Price: {{ package.price }}</p>
+<h4>{{ package.name }}</h4>
+<p>{{ package.details }}</p>
+<p>Price: ${{ package.price }}</p>
 
 <form action="/packages/{{ package.id }}/book" method="post">           
     User Name: <input type="text" name="name" value="{{v.username}}"><br>
