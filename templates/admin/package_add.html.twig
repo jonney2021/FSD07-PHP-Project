@@ -1,0 +1,57 @@
+{% extends "admin/master.html.twig" %}
+
+{% block title %}Add package information{% endblock %}
+
+{% block addHead %}
+
+<!-- prevent to resubmit -->
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+   {# <script>
+      tinymce.init({
+         selector: 'textarea[name=details]'
+      });
+   </script> #}
+{% endblock %}
+
+{% block content %}
+
+
+<h3>Add package information</h3>
+
+
+{% if errorList %}
+    <ul class="errorMessage"> 
+    {% for error in errorList %}
+        <li>{{error}}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group"> 
+    Name: <input type="text" name="name" value="{{v.name}}" placeholder="Package name"><br>
+    </div>
+    <div class="form-group"> 
+    Type: <input type="text" name="type" value="{{v.type}}" placeholder="Package type"><br>
+    </div>
+    <div class="form-group"> 
+    Location: <input type="text" name="location" value="{{v.location}}" placeholder="Package location"><br>
+    </div>
+    <div class="form-group"> 
+    Price: <input type="text" name="price" value="{{v.price}}" placeholder="Package price"><br> 
+    </div>
+    <div class="form-group"> 
+    Details: <textarea id="content" name="details" rows="4" cols="50" placeholder="Description">{{v.details}}</textarea><br> 
+    </div> 
+    <div class="form-group"> 
+    Add images: <input type="file" name="images[]" multiple="multiple"/>
+    </div>
+    <br> 
+    <button type="submit" class="btn btn-primary">Add Tour Package</button>
+</form>
+{% endblock content %}

@@ -202,9 +202,11 @@ $app->post('/profile/edit', function ($request, $response, $args) {
     }
 
     // validate password
-    $result = verifyPasswordQuality($password, $passwordrepeat);
-    if ($result !== TRUE) {
-        $errorList[] = $result;
+    if (!empty($password)) {
+        $result = verifyPasswordQuality($password, $passwordrepeat);
+        if ($result !== TRUE) {
+            $errorList[] = $result;
+        }
     }
 
     // validate email
@@ -260,3 +262,90 @@ function verifyPasswordQuality($password, $passwordrepeat)
     }
     return TRUE;
 }
+
+// show tour package list
+$app->get('/packages', function ($request, $response, $args) {
+    $packages = DB::query("SELECT * FROM tourpackages");
+    $images = array();
+    foreach ($packages as $package) {
+        $imagesRecord = DB::query("SELECT * FROM images WHERE tourPackageId = %i", $package['id']);
+        $images[$package['id']] = $imagesRecord;
+        // print_r($images[$package['id']]);
+    }
+    return $this->get('view')->render($response, 'packages_list.html.twig', ['packages' => $packages, 'images' => $images]);
+});
+
+//User book a package
+//placebid
+// STATE 1: first display of the form
+$app->get('/packages/{id:[0-9]+}/book', function ($request, $response, $args) {
+    if (!isset($_SESSION['user'])) { //refuse if user not logged in
+        return $response->withHeader('Location', '/login')->withStatus(302);
+    }
+    $id = $args['id'];
+    $package = DB::queryFirstRow("SELECT * FROM tourpackages WHERE id=%i", $id);
+    if (empty($package)) {
+        $response = $response->withStatus(404);
+        return $this->get('view')->render($response, 'not_found.html.twig');
+    }
+    $userid = $_SESSION['user']['id'];
+    $user = DB::queryFirstRow("SELECT * FROM users where id=%i", $userid);
+    return $this->get('view')->render($response, 'booking.html.twig', ['package' => $package, 'v' => $user]);
+});
+
+// SATE 2&3: receiving a submission
+$app->post('/packages/{id:[0-9]+}/book', function ($request, $response, $args) {
+    $id = $args['id'];
+    // extract values submitted
+    $data = $request->getParsedBody();
+    $name = $data["name"];
+    $email = $data["email"];
+    $phone = $data["phone"];
+
+    // validate
+    $errorList = [];
+
+    $package = DB::queryFirstRow("SELECT * FROM tourpackages WHERE id=%i", $id);
+    // check if id is provided
+    if (isset($id) && !empty($package)) {
+        //validate name
+        if (strlen($name) < 2 || strlen($name) > 100) {
+            $errorList[] = "Name must be 2-100 characters long.";
+            $biddersname = "";
+        }
+        if (preg_match('/^[a-zA-Z0-9 .,-_]*$/', $name) != 1) {
+            $errorList[] = "Name only accept letters (upper/lower-case), space, dash, dot, comma and numbers allowed";
+            $name = "";
+        }
+        // validate email
+        if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+            $errorList[] = "Invalid email";
+            $email = "";
+        }
+
+        //validate phone number
+        if (!preg_match("/^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/", $phone)) {
+            $errorList[] = "Invalid phone number.";
+            $phone = "";
+        }
+    } else {
+        $response = $response->withStatus(404);
+        return $this->get('view')->render($response, 'not_found.html.twig');
+    }
+
+    if ($errorList) { // STATE 2: errors
+        $valuesList = ['name' => $name, 'email' => $email, 'phone' => $phone];
+        return $this->get('view')->render($response, 'booking.html.twig', ['errorList' => $errorList, 'v' => $valuesList]);
+    } else { // STATE 3: sucess
+        // save the booking details to the database
+        DB::insert('orders', [
+            'userId' => $_SESSION['user']['id'], 'total' => $package['price'], 'tourPackageId' => $id
+        ]);
+        // fetch the booking id
+        $bookingRecord = DB::queryFirstRow("SELECT * FROM orders ORDER BY id DESC");
+        $bookingId = $bookingRecord['id'];
+        $bookingTotal = $bookingRecord['total'];
+        // render the booking confirmation template
+        return $this->get('view')->render($response, 'booking_confirmation.html.twig', ['bookingId' => $bookingId, 'bookingTotal' => $bookingTotal]);
+    }
+});

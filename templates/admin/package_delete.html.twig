@@ -1,0 +1,33 @@
+{% extends "admin/master.html.twig" %}
+
+{% block title %}Delete package information{% endblock %}
+
+
+{% block content %}
+
+<h3>Delete user information</h3>
+
+<form method="post">
+    <div class="form-group"> 
+    Name: {{v.username}}<br>
+    </div>
+    <div class="form-group"> 
+    Type: {{v.type}}<br> 
+    </div>
+    <div class="form-group"> 
+    Location: {{v.location}} 
+    </div> 
+    <div class="form-group"> 
+    Price:
+    {{v.price}}  
+    </div> 
+    <div class="form-group"> 
+    Details:
+    {{v.details}}  
+    </div> 
+    <br>
+    <h6>Please confirm this action. It is irreversible</h6>
+    <button type="submit" class="btn btn-primary">Yes, delete the package</button>
+</form>
+<a href="/admin/packages/list">Cancel and go back to the list</a>
+{% endblock content %}

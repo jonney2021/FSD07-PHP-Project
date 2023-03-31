@@ -11,13 +11,15 @@
         {% endblock %}
     </head>
     <body>
-        <div id="centeredContent">{% block content %}{% endblock %}
+        {# <div id="centeredContent"> #}
+        <div class="container">
+        {% block content %}{% endblock %}
 
-            <div id="footer">
+            {# <div id="footer">
                 {% block footer %}
                     &copy; Copyright 2023 by <a href="http://tourism.org/">you</a>.
                 {% endblock %}
-            </div>
+            </div> #}
         </div>  
             
     </body>
@@ -27,7 +29,6 @@
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-
         gtag('config', 'G-9KLLBZ8D54');
     </script>   
 </html>
