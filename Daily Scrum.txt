@@ -79,3 +79,14 @@
 2. To do until next scrum
 - admin add tour package information
 - admin edit tour package information
+
+2023/03/30 Yuanbo
+1. Done since last scrum
+- finished configuring hosting
+- finished test show/edit user profile
+- finished test admin CRUD
+- finished learning Google analytics  
+2. To do until next scrum
+- search web materials and modify them to adjust to our website
+- test admin can manage users
+- test verify admin authentication
