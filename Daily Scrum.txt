@@ -91,7 +91,7 @@
 - test admin can manage users
 - test verify admin authentication
 
-2023/03/30 Yeming
+2023/03/31 Yeming
 1. Done since last scrum
 - implemented admin can add tour package information
 - implemented admin manage tour package information

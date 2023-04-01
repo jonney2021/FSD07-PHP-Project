@@ -21,7 +21,7 @@ body {
   background-color: yellow;
   color: red;
 }
-.card {
+.container .card {
   height: 700px;
 }
 .container .card-title {

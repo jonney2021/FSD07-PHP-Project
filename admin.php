@@ -443,7 +443,7 @@ $app->post('/admin/packages/edit/{id:[0-9]+}', function ($request, $response, $a
     if ($errorList) { // STATE 2: errors
         $valuesList = ['name' => $name, 'type' => $type, 'location' => $location, 'price' => $price, 'details' => $details];
         return $this->get('view')->render($response, 'admin/package_edit.html.twig', ['errorList' => $errorList, 'v' => $valuesList]);
-    } else { // STATE 3: sucess
+    } else { // STATE 3: success
 
         $data = [
             'name' => $name, 'type' => $type, 'location' => $location, 'price' => $price, 'details' => $details
