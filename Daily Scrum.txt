@@ -98,6 +98,6 @@
 - implemented show package list
 - implemented user can book a package
 2. To do until next scrum
-- user can edit his booking
+- user can cancel his booking
 - improve admin update package function
-- user search tour package
+- user can search tour package

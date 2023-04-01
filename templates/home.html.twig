@@ -2,22 +2,57 @@
 
 {% block content %}
 
-    <div class="container">
-        {% if session.user %}
-            <p>Welcome back, {{ session.user.username }}!</p>
-            <a href="/logout">Logout</a>
-        {% else %}
-            <a href="/login">Login</a>
-            <a href="/register">Register</a>
-        {% endif %}
+	{# <div class="container"> #}
+	{# {% if session.user %}
+														            <p>Welcome back, {{ session.user.username }}!</p>
+														            <a href="/logout">Logout</a>
+														        {% else %}
+														            <a href="/login">Login</a>
+														            <a href="/register">Register</a>
+														        {% endif %} #}
+		<div class="row justify-content-center"> <h1>
+			Welcome to the Tourism Management Homepage
+		</h1>
+		<p>
+			<a href="/profile">
+				Profile</a>
+		</p>
+		<p>
+			<a href="/packages">View Tour Packages</a>
+		</p>
+		<p>
+			<a href="/booking">View My booking</a>
+		</p>
+		<p>Some content here...</p>
+	</div>
 
-        <h1>Welcome to the Tourism Management Homepage</h1>
-        <p><a href="/profile">Profile</a></p>
-        <p><a href="/packages">View Tour Packages</a></p>
-        <p>Some content here...</p>       
-    </div>
 
+	{# search bar #}
+	<div class="container">
+		<br/>
+		<div class="row justify-content-center">
+			<div class="col-12 col-md-10 col-lg-8">
+				<p class="h5 font-weight-bold mb-4">Discover the Amazing Tour</p>
+				<form class="card card-sm" method="post">
+					<div class="card-body row no-gutters align-items-center">
+						<div class="col-auto">
+							<i class="fas fa-search h4 text-body"></i>
+						</div>
+						<!--end of col-->
+						<div class="col">
+							<input class="form-control form-control-lg form-control-borderless " placeholder="Search location" name="location" required>
+						</div>
+						<!--end of col-->
+						<div class="col-auto">
+							<button class="btn btn-lg btn-success" type="submit">Search</button>
+						</div>
+						<!--end of col-->
+					</div>
+				</form>
+			</div>
+			<!--end of col-->
+		</div>
+	</div>
+	{# </div> #}
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 {% endblock %}
-
-
-

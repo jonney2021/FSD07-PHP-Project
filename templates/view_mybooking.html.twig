@@ -1,0 +1,40 @@
+{% extends 'master.html.twig' %}
+
+{% block content %}
+    <h1>My booking</h1>
+    
+<h4>User Information</h4>
+<p>Name: {{ user.username }}</p>
+<p>Email: {{ user.email }}</p>
+
+<h4>Booking Information</h4>
+{% if bookings is empty %}
+    <p>No bookings found for this user.</p>
+{% else %}
+    <table>
+        <thead>
+            <tr>
+                <th>Package</th>
+                <th>Type</th>
+                <th>Location</th>
+                <th>Total</th>
+                <th>Booking Time<th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+                <tr>
+                    <td>{{ booking.name }}</td>
+                    <td>{{ booking.type }}</td>
+                    <td>{{ booking.location }}</td>
+                    <td>${{ booking.total }}</td>
+                    <td>{{ booking.placedTS }}</td>
+                    <td>
+                        <a href="/booking/delete/{{booking.id}}"><button type="button" class="btn btn-danger">Cancel</button></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% endblock %}

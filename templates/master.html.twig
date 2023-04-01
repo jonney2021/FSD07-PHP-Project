@@ -1,34 +1,80 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="/style.css"/>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css">
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js" integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i" crossorigin="anonymous"></script>
-        <title>{% block title %}{% endblock %} - Tourism Management System</title>
-        {% block addHead %}
-        {% endblock %}
-    </head>
-    <body>
-        {# <div id="centeredContent"> #}
-        <div class="container">
-        {% block content %}{% endblock %}
+	<head>
+		<link rel="stylesheet" href="/style.css"/>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css">
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js" integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i" crossorigin="anonymous"></script>
+		<script>
+			setTimeout(function () {
+$('.alert').fadeOut('slow');
+}, 5000);
+		</script>
+		<title>
+			{% block title %}{% endblock %}
+			- Tourism Management System</title>
+		{% block addHead %}{% endblock %}
+	</head>
+	<body>
 
-            {# <div id="footer">
-                {% block footer %}
-                    &copy; Copyright 2023 by <a href="http://tourism.org/">you</a>.
-                {% endblock %}
-            </div> #}
-        </div>  
-            
-    </body>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9KLLBZ8D54"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-9KLLBZ8D54');
-    </script>   
-</html>
+		<header
+			id="menu">
+			<!-- navbar -->
+			<nav class="navbar navbar-expand-md bg-light">
+				<div class="container">
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div
+						class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
+						<!-- title -->
+						<a class="navbar-brand" href="/">My Tourism</a>
+
+						<ul class="navbar-nav">
+							<li class="nav-item">
+								<a class="nav-link" href="/">Home</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#destination">Destination</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#booking">Booking</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#testimonial">Testimonial</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="/register">Sign Up</a>
+							</li>
+							<li class="nav-item">
+								{% if userSession %}
+									<span>
+										Welcome,
+										{{ userSession.username }}
+										!
+									</span>
+									<a class="nav-link" href="/logout">
+										Logout</a>
+								{% else %}
+									<a class="nav-link" href="/login">Login</a>
+								{% endif %}
+
+							</li>
+
+						</ul>
+					</div>
+				</div>
+			</body>
+		</html>
+	</body>
+</html></nav></header>{# <div id="centeredContent"> #}<div class="container mt-5 ">{% if flashMessage %}
+{# <div id="flashMessage">{{flashMessage}}</div> #}
+<div class="alert alert-success" role="alert">
+	{{flashMessage}}
+</div>{% endif %}{% block content %}{% endblock %}</div></body></html></div><!-- Footer section --><footer class="bg-light py-3"><div class="container text-center"><p>&copy; 2023 My Website</p></div></footer></body><!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-9KLLBZ8D54"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag() {
+dataLayer.push(arguments);
+}
+gtag('js', new Date());
+gtag('config', 'G-9KLLBZ8D54');</script></html></html>

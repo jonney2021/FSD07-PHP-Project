@@ -1,0 +1,30 @@
+{% extends "master.html.twig" %}
+{% block content %}
+
+    <div class="container">
+    <h3>Search Result</h3>
+    <div class="row">
+    {% if results %}
+    <p>{{ results|length }} result found.</p>
+        {% for result in results %}
+        <div class="col-sm-6 col-lg-3 mb-4">
+            <div class="card h-100">
+                {% if images[result.id]|length > 0 %}
+                {# show only one image for each package #}
+                <img src="{{ images[result.id]|slice(0, 1)[0].imageUrl }}" class="card-img-top" />
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ result.name }}</h5>
+                    <p class="card-subtitle mb-2 text-muted">${{ result.price }}</p>
+                    <p class="card-text">{{ result.details }}</p>
+                    <a href="/packages/{{result.id}}/book" class="btn btn-primary card-button">Book</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>No results found.</p>
+{% endif %}
+</div>
+{% endblock%}

@@ -108,6 +108,24 @@ $app->get('/isemailexist/{email}', function ($request, $response, $args) {
 });
 
 
+// LOGIN / LOGOUT USING FLASH MESSAGES TO CONFIRM THE ACTION
+
+// function setFlashMessage($message)
+// {
+//     $_SESSION['flashMessage'] = $message;
+// }
+
+// // returns empty string if no message, otherwise returns string with message and clears is
+// function getAndClearFlashMessage()
+// {
+//     if (isset($_SESSION['flashMessage'])) {
+//         $message = $_SESSION['flashMessage'];
+//         unset($_SESSION['flashMessage']);
+//         return $message;
+//     }
+//     return "";
+// }
+
 //login
 // STATE 1: first display of the form
 $app->get('/login', function ($request, $response, $args) {
@@ -115,7 +133,7 @@ $app->get('/login', function ($request, $response, $args) {
 });
 
 // STATE 2&3: receiving a submission
-$app->post('/login', function ($request, $response, $args) {
+$app->post('/login', function ($request, $response, $args) use ($log) {
     // extract values submitted
     $data = $request->getParsedBody();
     $username = $data['username'];
@@ -125,6 +143,7 @@ $app->post('/login', function ($request, $response, $args) {
     $loginSuccessful = ($userRecord != null) && ($userRecord['password'] == $password);
 
     if (!$loginSuccessful) { //STATE2: login failed
+        $log->info(sprintf("Login failed for username %s from %s", $username, $_SERVER['REMOTE_ADDR']));
         $error = "Invalid username or password!";
         return $this->get('view')->render($response, 'login.html.twig', ['error' => $error]);
     } else { //STATE3: login successful
@@ -132,7 +151,10 @@ $app->post('/login', function ($request, $response, $args) {
         unset($userRecord['password']);
         // User is authenticated, set session variable
         $_SESSION['user'] = $userRecord;
-        //redirect to home page
+        $log->debug(sprintf("Login successful for username %s, uid=%d, from %s", $username, $userRecord['id'], $_SERVER['REMOTE_ADDR']));
+
+        setFlashMessage("Login successful");
+        //redirect to home page     
         return $response->withHeader('Location', '/')->withStatus(302);
     }
 });
@@ -141,12 +163,12 @@ $app->post('/login', function ($request, $response, $args) {
 $app->get('/logout', function (Request $request, Response $response) {
     // Clear session variable and redirect to login page
     unset($_SESSION['user']);
-    return $response->withHeader('Location', '/login')->withStatus(302);
+    setFlashMessage("Logout successful");
+    return $response->withHeader('Location', '/')->withStatus(302);
 });
 
 
 // view profile
-// $app->get('/profile', function ($request, $response, $args) use ($log) {
 $app->get('/profile', function ($request, $response, $args) {
     if (!isset($_SESSION['user'])) { //refuse if user not logged in
         return $response->withHeader('Location', '/login')->withStatus(302);
@@ -276,7 +298,6 @@ $app->get('/packages', function ($request, $response, $args) {
 });
 
 //User book a package
-//placebid
 // STATE 1: first display of the form
 $app->get('/packages/{id:[0-9]+}/book', function ($request, $response, $args) {
     if (!isset($_SESSION['user'])) { //refuse if user not logged in
@@ -347,5 +368,62 @@ $app->post('/packages/{id:[0-9]+}/book', function ($request, $response, $args) {
         $bookingTotal = $bookingRecord['total'];
         // render the booking confirmation template
         return $this->get('view')->render($response, 'booking_confirmation.html.twig', ['bookingId' => $bookingId, 'bookingTotal' => $bookingTotal]);
+    }
+});
+
+// user view my booking list
+$app->get('/booking', function ($request, $response, $args) {
+    if (!isset($_SESSION['user'])) { //refuse if user not logged in
+        return $response->withHeader('Location', '/login')->withStatus(302);
+    }
+
+    // Retrieve user information from the database
+    $id = $_SESSION['user']['id'];
+    $user = DB::queryFirstRow("SELECT * FROM users WHERE id = %i", $id);
+    // Retrieve booking information for the user, along with the associated package information
+    $bookings = DB::query("SELECT * FROM  orders o inner join tourpackages t on o.tourPackageId = t.id where o.userid =%i", $id);
+    return $this->get('view')->render($response, 'view_mybooking.html.twig', ['user' => $user, 'bookings' => $bookings]);
+});
+
+
+// user cancel booking
+// STATE 1: first display
+$app->get('/booking/delete/{id:[0-9]+}', function ($request, $response, $args) {
+    if (!isset($_SESSION['user'])) { //refuse if user not logged in
+        return $response->withHeader('Location', '/login')->withStatus(302);
+    }
+    $bookingId = $args['id'];
+    // $id = $_SESSION['user']['id'];
+    $order = DB::queryFirstRow("SELECT * FROM orders where id=%i", $bookingId);
+    $package = DB::queryFirstRow("SELECT * FROM tourpackages t inner join orders o on o.tourPackageId = t.id where o.id =%i", $bookingId);
+    return $this->get('view')->render($response, 'booking_delete.html.twig', ['order' => $order, 'package' => $package]);
+});
+
+$app->post('/booking/delete/{id:[0-9]+}', function ($request, $response, $args) {
+    DB::delete('orders', "id=%i", $args['id']);
+    return $this->get('view')->render($response, 'booking_delete_success.html.twig');
+});
+
+// user can search package
+// Define the search route
+$app->post('/', function ($request, $response, $args) {
+    // Retrieve the search criteria from the form
+    $data = $request->getParsedBody();
+    $location = isset($data["location"]) ? $data["location"] : null;
+    if ($location) {
+        // Construct the MeekroDB query
+        $query = "SELECT * FROM tourpackages WHERE location LIKE %s";
+        $results = DB::query($query, "%{$location}%");
+        $images = array();
+        //fetch image
+        foreach ($results as $result) {
+            $imagesRecord = DB::query("SELECT * FROM images WHERE tourPackageId = %i", $result['id']);
+            $images[$result['id']] = $imagesRecord;
+        }
+        // Pass the search results to a Twig template
+        return $this->get('view')->render($response, 'search_results.html.twig', ['results' => $results, 'images' => $images]);
+    } else {
+        // Render the search form again
+        return $this->get('view')->render($response, 'home.html.twig');
     }
 });

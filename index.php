@@ -18,6 +18,8 @@ require_once 'testing.php';
 
 require_once 'admin.php';
 
+
+
 // homepage
 $app->get('/', function (Request $request, Response $response, $args) {
     return $this->get('view')->render($response, 'home.html.twig', ['session' => $_SESSION]);

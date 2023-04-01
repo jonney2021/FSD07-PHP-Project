@@ -6,8 +6,8 @@
     <h3>Tour Packages List</h3>
     <div class="row">
         {% for package in packages %}
-        <div class="col-md-3 mb-4">
-            <div class="card">
+        <div class="col-sm-6 col-lg-3 mb-4">
+            <div class="card h-100">
                 {% if images[package.id]|length > 0 %}
                 {# show only one image for each package #}
                 <img src="{{ images[package.id]|slice(0, 1)[0].imageUrl }}" class="card-img-top" />
@@ -16,7 +16,7 @@
                     <h5 class="card-title">{{ package.name }}</h5>
                     <p class="card-subtitle mb-2 text-muted">${{ package.price }}</p>
                     <p class="card-text">{{ package.details }}</p>
-                    <a href="/packages/{{package.id}}/book" class="btn btn-primary">Book</a>
+                    <a href="/packages/{{package.id}}/book" class="btn btn-primary card-button">Book</a>
                 </div>
             </div>
         </div>
