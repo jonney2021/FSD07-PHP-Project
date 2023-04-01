@@ -100,4 +100,17 @@
 2. To do until next scrum
 - user can cancel his booking
 - improve admin update package function
-- user can search tour package
+- user search tour package
+
+2023/03/31 Yuanbo
+1. Done since last scrum
+- done search web materials and modify them to adjust to our website
+- done admin can manage users
+- done verify admin authenticati
+
+2. To do until next scrum
+- add some styles to our website
+- test Admin can manage tour packages
+- test show package list
+- test user can book a package
+- test user can view tour package list
