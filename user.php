@@ -84,7 +84,9 @@ $app->post('/register', function ($request, $response, $args) {
             'username' => $username, 'password' => $password, 'email' => $email, 'phoneNo' => $phoneno
         ]);
         setFlashMessage("Register successful");
-        return $this->get('view')->render($response, 'register_success.html.twig');
+        // return $this->get('view')->render($response, 'register_success.html.twig');
+        //redirect to home page     
+        return $response->withHeader('Location', '/')->withStatus(302);
     }
 });
 
@@ -354,10 +356,11 @@ $app->post('/packages/{id:[0-9]+}/book', function ($request, $response, $args) {
         // fetch the booking id
         $bookingRecord = DB::queryFirstRow("SELECT * FROM orders ORDER BY id DESC");
         $bookingId = $bookingRecord['id'];
-        $bookingTotal = $bookingRecord['total'];
+        // $bookingTotal = $bookingRecord['total'];
+        // $package = DB::query("SELECT t.name as packageName,t.price as packagePrice FROM tourpackages t inner join orders o on o.tourPackageId = t.id where o.id=%i", $bookingId);
         setFlashMessage("Booking completed");
         // render the booking confirmation template
-        return $this->get('view')->render($response, 'booking_confirmation.html.twig', ['bookingId' => $bookingId, 'bookingTotal' => $bookingTotal]);
+        return $this->get('view')->render($response, 'booking_confirmation.html.twig', ['booking' => $bookingRecord, 'package' => $package]);
     }
 });
 
