@@ -1,35 +1,85 @@
 {% extends "master.html.twig" %}
 
 {% block addHead %}
-<!-- prevent to resubmit -->
-<script>
-    if (window.history.replaceState) {
-        window.history.replaceState(null, null, window.location.href);
-    }
-</script>
+	<!-- prevent to resubmit -->
+	<script>
+		if (window.history.replaceState) {
+window.history.replaceState(null, null, window.location.href);
+}
+	</script>
+
+
 {% endblock %}
 
 {% block content %}
 
-{% if errorList %}
-    <ul class="errorMessage">
-    {% for error in errorList %}
-        <li>{{error}}</li>
-    {% endfor %}
-    </ul>
-{% endif %}
+	{% if errorList %}
+		<ul class="errorMessage">
+			{% for error in errorList %}
+				<li>{{error}}</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
 
-<h1>Book a tour package</h1>
 
-<h4>{{ package.name }}</h4>
-<p>{{ package.details }}</p>
-<p>Price: ${{ package.price }}</p>
+	<section class="vh-50" style="background-color: #f4f5f7;">
+		<div class="container rounded mt-5">
+			<div class="row">
+				<form action="/packages/{{ package.id }}/book" method="post">
+					<h3 class="p-5 py-3">Book a tour package</h3>
+					<div class="photo-gallery">
+						<div class="container">
+							<div class="row photos">
+								{% for image in images %}
+									<div class="col-sm-6 col-md-4 col-lg-3 item">
+										<a href="assets/img/desk.jpg" data-lightbox="photos"><img class="img-fluid w-100 shadow-1-strong rounded mb-4" src="/{{ image.imageUrl }}"></a>
+									</div>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
 
-<form action="/packages/{{ package.id }}/book" method="post">           
-    User Name: <input type="text" name="name" value="{{v.username}}"><br>
-    Email: <input type="email" name="email" value="{{v.email}}"><br>
-    Phone Number: <input type="text" name="phone" value="{{v.phoneNo}}"><br>
-    {# <input type="submit" name="submit" value="Book Now"> #}
-    <button type="submit" class="btn btn-primary">Book Now</button>
-</form>
+					<div class="col-md-8">
+						<div class="p-5 py-3">
+							<div class="row mt-2">
+								<div class="col-md-6">
+									<h4>{{ package.name }}</h4>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<p>Description:
+										{{ package.details }}</p>
+								</div>
+							</div>
+							<div class="row mt-2">
+								<div class="col-md-6">
+									<h6>Price: ${{ package.price }}</h6>
+								</div>
+							</div>
+
+							<div class="row mt-2">
+								<div class="col-md-6">User Name:
+									<input type="text" class="form-control" placeholder="name" value="{{v.username}}" name="name"></div>
+							</div>
+
+							<div class="row mt-3">
+								<div class="col-md-6">Email:
+									<input type="email" class="form-control" placeholder="Email" value="{{v.email}}" name="email"></div>
+							</div>
+							<div class="row mt-3">
+								<div class="col-md-6">Phone Number:
+									<input type="text" class="form-control" placeholder="phone number" value="{{v.phoneNo}}" name="phone"></div>
+							</div>
+							<div class="mt-5 text-right">
+								<button class="btn btn-primary profile-button" type="submit">Book Now</button>
+							</div>
+
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+
 {% endblock content %}

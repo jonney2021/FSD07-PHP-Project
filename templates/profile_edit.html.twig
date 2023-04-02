@@ -1,47 +1,74 @@
 {% extends "master.html.twig" %}
 
-{% block title %}Update profile{% endblock %}
+{% block title %}Update profile
+{% endblock %}
 
 {% block addHead %}
 
-<!-- prevent to resubmit -->
-<script>
-    if (window.history.replaceState) {
-        window.history.replaceState(null, null, window.location.href);
-    }
-</script>
+	<!-- prevent to resubmit -->
+	<script>
+		if (window.history.replaceState) {
+window.history.replaceState(null, null, window.location.href);
+}
+	</script>
 {% endblock %}
 
 {% block content %}
 
-<h3>Update user information</h3>
+	<h3>Edit profile</h3>
 
-{% if errorList %}
-    <ul class="errorMessage"> 
-    {% for error in errorList %}
-        <li>{{error}}</li>
-    {% endfor %}
-    </ul>
-{% endif %}
+	{% if errorList %}
+		<ul class="errorMessage">
+			{% for error in errorList %}
+				<li>{{error}}</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
 
-<form method="post">
-    <div class="form-group"> 
-    Username: <input type="text" name="username" value="{{v.username}}" placeholder="Enter your name"><br>
-    <span id="usernameTaken" class="errorMessage"></span>
-    </div>
-    <div class="form-group"> 
-    Password: <input type="password" name="password" placeholder="Enter your password"><br>
-    </div>
-    <div class="form-group"> 
-    Password (repeat): <input type="password" name="passwordrepeat" placeholder="Enter your password"><br>
-    </div>
-    <div class="form-group"> 
-    Email: <input type="email" name="email" value="{{v.email}}" placeholder="Enter your email"><br> 
-    </div>
-    <div class="form-group"> 
-    Phone number: <input type="text" name="phoneno" value="{{v.phoneNo}}" placeholder="Enter your phone number">  
-    </div> 
+	<section class="vh-50" style="background-color: #f4f5f7;">
+		<div class="container rounded mt-5">
+			<div class="row">
+				<form method="post">
+					<div class="col-md-4">
+						<div class="d-flex flex-column align-items-center text-center p-3 py-3"><img class="rounded-circle mt-5" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" width="90"><span class="font-weight-bold">{{v.username}}</span>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="p-5 py-3">
+							<div class="d-flex justify-content-between align-items-center mb-3">
+								<div class="d-flex flex-row align-items-center back">
+									<i class="fa fa-long-arrow-left mr-1 mb-1"></i>
+									<a href="/">
+										<h6>Back to home</h6>
+									</a>
+								</div>
+							</div>
 
-    <button type="submit" class="btn btn-primary">Update profile</button>
-</form>
+							<div class="row mt-2">
+								<div class="col-md-6"><input type="text" class="form-control" placeholder="name" value="{{v.username}}" name="username"></div>
+							</div>
+							<div class="row mt-3">
+								<div class="col-md-6"><input type="password" class="form-control" placeholder="passwrod" name="password"></div>
+
+							</div>
+							<div class="row mt-3">
+								<div class="col-md-6"><input type="password" class="form-control" placeholder="password repeat" name="passwordrepeat"></div>
+
+							</div>
+							<div class="row mt-3">
+								<div class="col-md-6"><input type="email" class="form-control" placeholder="Email" value="{{v.email}}" name="email"></div>
+							</div>
+							<div class="row mt-3">
+								<div class="col-md-6"><input type="text" class="form-control" placeholder="phone number" value="{{v.phoneNo}}" name="phoneno"></div>
+							</div>
+							<div class="mt-5 text-right">
+								<button class="btn btn-primary profile-button" type="submit">Save Profile</button>
+							</div>
+
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
 {% endblock content %}

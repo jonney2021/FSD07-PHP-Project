@@ -36,6 +36,7 @@ $app->post('/admin/login', function ($request, $response, $args) {
         unset($adminRecord['password']);
         // Admin is authenticated, set session variable
         $_SESSION['admin'] = $adminRecord;
+        setFlashMessage("Login successful");
         //redirect to home page
         return $response->withHeader('Location', '/admin')->withStatus(302);
     }
@@ -45,7 +46,8 @@ $app->post('/admin/login', function ($request, $response, $args) {
 $app->get('/admin/logout', function (Request $request, Response $response) {
     // Clear session variable and redirect to login page
     unset($_SESSION['admin']);
-    return $response->withHeader('Location', '/admin/login')->withStatus(302);
+    setFlashMessage("Logout successful");
+    return $response->withHeader('Location', '/admin')->withStatus(302);
 });
 
 //admin dashboard
@@ -190,6 +192,7 @@ $app->post('/admin/users/{op:edit|add}[/{id:[0-9]+}]', function ($request, $resp
                 $data['password'] = $password;
             }
             DB::update('users', $data, "id=%i", $args['id']);
+            setFlashMessage("Operation successful");
             return $this->get('view')->render($response, 'admin/users_addedit_success.html.twig', ['op' => $op]);
         }
     }
@@ -210,6 +213,7 @@ $app->get('/admin/users/delete/{id:[0-9]+}', function ($request, $response, $arg
 $app->post('/admin/users/delete/{id:[0-9]+}', function ($request, $response, $args) {
 
     DB::delete('users', "id=%i", $args['id']);
+    setFlashMessage("Delete user successful");
     return $this->get('view')->render($response, 'admin/users_delete_success.html.twig');
 });
 
@@ -339,6 +343,7 @@ $app->post('/admin/packages/add', function ($request, $response, $args) {
                 DB::insert('images', ['tourPackageId' => $insertedId, 'imageUrl' => "uploads/" . $filename]);
             }
         }
+        setFlashMessage("New Package Added");
         return $this->get('view')->render($response, 'admin/package_add_success.html.twig');
     }
 });
@@ -449,6 +454,7 @@ $app->post('/admin/packages/edit/{id:[0-9]+}', function ($request, $response, $a
             'name' => $name, 'type' => $type, 'location' => $location, 'price' => $price, 'details' => $details
         ];
         DB::update('tourpackages', $data, "id=%i", $args['id']);
+        setFlashMessage("Package information updated");
         return $this->get('view')->render($response, 'admin/package_edit_success.html.twig');
     }
 });
@@ -467,5 +473,6 @@ $app->get('/admin/packages/delete/{id:[0-9]+}', function ($request, $response, $
 
 $app->post('/admin/packages/delete/{id:[0-9]+}', function ($request, $response, $args) {
     DB::delete('tourpackages', "id=%i", $args['id']);
+    setFlashMessage("Package deleted");
     return $this->get('view')->render($response, 'admin/package_delete_success.html.twig');
 });

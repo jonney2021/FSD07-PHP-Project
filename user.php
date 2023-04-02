@@ -83,6 +83,7 @@ $app->post('/register', function ($request, $response, $args) {
         DB::insert('users', [
             'username' => $username, 'password' => $password, 'email' => $email, 'phoneNo' => $phoneno
         ]);
+        setFlashMessage("Register successful");
         return $this->get('view')->render($response, 'register_success.html.twig');
     }
 });
@@ -106,25 +107,6 @@ $app->get('/isemailexist/{email}', function ($request, $response, $args) {
     }
     return $response;
 });
-
-
-// LOGIN / LOGOUT USING FLASH MESSAGES TO CONFIRM THE ACTION
-
-// function setFlashMessage($message)
-// {
-//     $_SESSION['flashMessage'] = $message;
-// }
-
-// // returns empty string if no message, otherwise returns string with message and clears is
-// function getAndClearFlashMessage()
-// {
-//     if (isset($_SESSION['flashMessage'])) {
-//         $message = $_SESSION['flashMessage'];
-//         unset($_SESSION['flashMessage']);
-//         return $message;
-//     }
-//     return "";
-// }
 
 //login
 // STATE 1: first display of the form
@@ -261,7 +243,10 @@ $app->post('/profile/edit', function ($request, $response, $args) {
             $data['password'] = $password;
         }
         DB::update('users', $data, "id=%i", $id);
-        return $this->get('view')->render($response, 'profile_edit_success.html.twig');
+        setFlashMessage("Profile updated");
+        //redirect to home page     
+        return $response->withHeader('Location', '/')->withStatus(302);
+        // return $this->get('view')->render($response, 'profile_edit_success.html.twig');
     }
 });
 
@@ -309,9 +294,13 @@ $app->get('/packages/{id:[0-9]+}/book', function ($request, $response, $args) {
         $response = $response->withStatus(404);
         return $this->get('view')->render($response, 'not_found.html.twig');
     }
+
+    $images = DB::query("SELECT * FROM images WHERE tourPackageId = %i", $package['id']);
+
+
     $userid = $_SESSION['user']['id'];
     $user = DB::queryFirstRow("SELECT * FROM users where id=%i", $userid);
-    return $this->get('view')->render($response, 'booking.html.twig', ['package' => $package, 'v' => $user]);
+    return $this->get('view')->render($response, 'booking.html.twig', ['package' => $package, 'v' => $user, 'images' => $images]);
 });
 
 // SATE 2&3: receiving a submission
@@ -366,6 +355,7 @@ $app->post('/packages/{id:[0-9]+}/book', function ($request, $response, $args) {
         $bookingRecord = DB::queryFirstRow("SELECT * FROM orders ORDER BY id DESC");
         $bookingId = $bookingRecord['id'];
         $bookingTotal = $bookingRecord['total'];
+        setFlashMessage("Booking completed");
         // render the booking confirmation template
         return $this->get('view')->render($response, 'booking_confirmation.html.twig', ['bookingId' => $bookingId, 'bookingTotal' => $bookingTotal]);
     }
@@ -381,12 +371,12 @@ $app->get('/booking', function ($request, $response, $args) {
     $id = $_SESSION['user']['id'];
     $user = DB::queryFirstRow("SELECT * FROM users WHERE id = %i", $id);
     // Retrieve booking information for the user, along with the associated package information
-    $bookings = DB::query("SELECT * FROM  orders o inner join tourpackages t on o.tourPackageId = t.id where o.userid =%i", $id);
+    $bookings = DB::query("SELECT o.id as orderId, t.*, o.* FROM  orders o inner join tourpackages t on o.tourPackageId = t.id where o.userid =%i", $id);
     return $this->get('view')->render($response, 'view_mybooking.html.twig', ['user' => $user, 'bookings' => $bookings]);
 });
 
 
-// user cancel booking
+// user delete booking
 // STATE 1: first display
 $app->get('/booking/delete/{id:[0-9]+}', function ($request, $response, $args) {
     if (!isset($_SESSION['user'])) { //refuse if user not logged in
@@ -394,14 +384,21 @@ $app->get('/booking/delete/{id:[0-9]+}', function ($request, $response, $args) {
     }
     $bookingId = $args['id'];
     // $id = $_SESSION['user']['id'];
+    // $deleteUrl = "/booking/delete/$bookingId";
     $order = DB::queryFirstRow("SELECT * FROM orders where id=%i", $bookingId);
+    if (!$order) {
+        $response = $response->withStatus(404);
+        return $this->get('view')->render($response, 'not_found.html.twig');
+    }
     $package = DB::queryFirstRow("SELECT * FROM tourpackages t inner join orders o on o.tourPackageId = t.id where o.id =%i", $bookingId);
-    return $this->get('view')->render($response, 'booking_delete.html.twig', ['order' => $order, 'package' => $package]);
+
+    return $this->get('view')->render($response, 'view_mybooking.html.twig', ['order' => $order, 'package' => $package]);
 });
 
 $app->post('/booking/delete/{id:[0-9]+}', function ($request, $response, $args) {
     DB::delete('orders', "id=%i", $args['id']);
-    return $this->get('view')->render($response, 'booking_delete_success.html.twig');
+    setFlashMessage("Booking deleted");
+    return $response->withHeader('Location', '/booking')->withStatus(302);
 });
 
 // user can search package
