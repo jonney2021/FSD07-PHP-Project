@@ -1,54 +1,66 @@
 {% extends "admin/master.html.twig" %}
 
-{% block title %}Update package information{% endblock %}
+{% block title %}Update package information
+{% endblock %}
 
 {% block addHead %}
 
-<!-- prevent to resubmit -->
-<script>
-    if (window.history.replaceState) {
-        window.history.replaceState(null, null, window.location.href);
-    }
-</script>
-<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-   {# <script>
-      tinymce.init({
-         selector: 'textarea[name=details]'
-      });
-   </script> #}
+	<!-- prevent to resubmit -->
+	<script>
+		if (window.history.replaceState) {
+window.history.replaceState(null, null, window.location.href);
+}
+	</script>
+
 {% endblock %}
 
 {% block content %}
 
 
-<h3>Add package information</h3>
+	<h3>Edit package information</h3>
 
 
-{% if errorList %}
-    <ul class="errorMessage"> 
-    {% for error in errorList %}
-        <li>{{error}}</li>
-    {% endfor %}
-    </ul>
-{% endif %}
+	{% if errorList %}
+		<ul class="errorMessage">
+			{% for error in errorList %}
+				<li>{{error}}</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
 
-<form method="post">
-    <div class="form-group"> 
-    Name: <input type="text" name="name" value="{{v.name}}" placeholder="Package name"><br>
-    </div>
-    <div class="form-group"> 
-    Type: <input type="text" name="type" value="{{v.type}}" placeholder="Package type"><br>
-    </div>
-    <div class="form-group"> 
-    Location: <input type="text" name="location" value="{{v.location}}" placeholder="Package location"><br>
-    </div>
-    <div class="form-group"> 
-    Price: <input type="text" name="price" value="{{v.price}}" placeholder="Package price"><br> 
-    </div>
-    <div class="form-group"> 
-    Details: <textarea id="content" name="details" rows="4" cols="50" placeholder="Description">{{v.details}}</textarea><br> 
-    </div> 
-    <br> 
-    <button type="submit" class="btn btn-primary">Update Tour Package</button>
-</form>
+	<form
+		method="post">
+		<!-- Name input -->
+		<div class="form-outline mb-4">
+			<input type="text" id="form4Example1" class="form-control" name="name" value="{{v.name}}"/>
+			<label class="form-label" for="form4Example1">Name</label>
+		</div>
+
+		<!-- Type input -->
+		<div class="form-outline mb-4">
+			<input type="text" id="form4Example2" class="form-control" name="type" value="{{v.type}}"/>
+			<label class="form-label" for="form4Example2">Type</label>
+		</div>
+
+		<!-- Location input -->
+		<div class="form-outline mb-4">
+			<input type="text" id="form4Example3" class="form-control" name="location" value="{{v.location}}"/>
+			<label class="form-label" for="form4Example3">Location</label>
+		</div>
+
+		<!-- Location input -->
+		<div class="form-outline mb-4">
+			<input type="text" id="form4Example4" class="form-control" name="price" value="{{v.price}}"/>
+			<label class="form-label" for="form4Example4">Price</label>
+		</div>
+
+		<!-- Details input -->
+		<div class="form-outline mb-4">
+			<textarea class="form-control" id="form4Example5" rows="4" name="details">{{v.details}}</textarea>
+			<label class="form-label" for="form4Example5">Description</label>
+		</div>
+
+
+		<button type="submit" class="btn btn-primary">Update Tour Package</button>
+	</form>
 {% endblock content %}

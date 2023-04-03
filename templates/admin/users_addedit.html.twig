@@ -1,58 +1,83 @@
 {% extends "admin/master.html.twig" %}
 
-{% block title %}Update user information{% endblock %}
+{% block title %}Update user information
+{% endblock %}
 
 {% block addHead %}
 
-<!-- prevent to resubmit -->
-<script>
-    if (window.history.replaceState) {
-        window.history.replaceState(null, null, window.location.href);
-    }
-</script>
+	<!-- prevent to resubmit -->
+	<script>
+		if (window.history.replaceState) {
+window.history.replaceState(null, null, window.location.href);
+}
+	</script>
 {% endblock %}
 
 {% block content %}
 
-{%if op == 'edit' %}
-<h3>Update user information</h3>
-{% else %}
-<h3>Add user information</h3>
-{% endif %}
+	{%if op == 'edit' %}
+		<h3>Update user information</h3>
+	{% else %}
+		<h3>Add user information</h3>
+	{% endif %}
 
-{% if errorList %}
-    <ul class="errorMessage"> 
-    {% for error in errorList %}
-        <li>{{error}}</li>
-    {% endfor %}
-    </ul>
-{% endif %}
+	{% if errorList %}
+		<ul class="errorMessage">
+			{% for error in errorList %}
+				<li>{{error}}</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
 
-<form method="post">
-    <div class="form-group"> 
-    Username: <input type="text" name="username" value="{{v.username}}" placeholder="Enter your name"><br>
-    <span id="usernameTaken" class="errorMessage"></span>
-    </div>
-    <div class="form-group"> 
-    Password: <input type="password" name="password" placeholder="Enter your password"><br>
-    </div>
-    <div class="form-group"> 
-    Password (repeat): <input type="password" name="passwordrepeat" placeholder="Enter your password"><br>
-    </div>
-    <div class="form-group"> 
-    Email: <input type="email" name="email" value="{{v.email}}" placeholder="Enter your email"><br> 
-    </div>
-    <div class="form-group"> 
-    Phone number: <input type="text" name="phoneno" value="{{v.phoneNo}}" placeholder="Enter your phone number">  
-    </div> 
-    <div class="form-group"> 
-    Role:
-    {# <input type="radio" id="role1" name="role" value="user" {% if v.role == 'user' %}checked{% endif %}> #}
-    <input type="radio" id="role1" name="role" value="user" checked>
-    <label for="role1">user</label>
-    <input type="radio" id="role2" name="role" value="admin" {% if v.role == 'admin' %}checked{% endif %}>
-    <label for="role2">admin</label>
-    </div> 
-    <button type="submit" class="btn btn-primary">{% if op == 'edit'%}Update User{% else %}Add User{% endif %}</button>
-</form>
+	<form
+		method="post">
+
+		<!-- Username input -->
+		<div class="form-outline mb-4">
+			<input type="text" id="form3Example1" class="form-control" name="username" value="{{v.username}}"/>
+			<label class="form-label" for="form3Example1">Username</label>
+			<span id="usernameTaken" class="errorMessage"></span>
+		</div>
+
+
+		<!-- Password input -->
+		<div class="form-outline mb-4">
+			<input type="password" name="password" id="form3Example2" class="form-control"/>
+			<label class="form-label" for="form3Example2">Password</label>
+		</div>
+
+		<div class="form-outline mb-4">
+			<input type="password" name="passwordrepeat" id="form3Example3" class="form-control"/>
+			<label class="form-label" for="form3Example3">Password</label>
+		</div>
+
+		<!-- Email input -->
+		<div class="form-outline mb-4">
+			<input type="email" id="form3Example4" class="form-control" name="email" value="{{v.email}}"/>
+			<label class="form-label" for="form3Example4">Email address</label>
+		</div>
+
+		<!-- Password input -->
+		<div class="form-outline mb-4">
+			<input type="text" id="form3Example5" class="form-control" name="phoneno" value="{{v.phoneNo}}"/>
+			<label class="form-label" for="form3Example5">Phone number</label>
+		</div>
+
+		<!-- Radio -->
+
+		<div class="form-outline mb-4">
+			Role:
+			<input type="radio" id="role1" name="role" value="user" checked>
+			<label for="role1">user</label>
+			<input type="radio" id="role2" name="role" value="admin" {% if v.role == 'admin' %} checked {% endif %}>
+			<label for="role2">admin</label>
+		</div>
+
+		<!-- Submit button -->
+		<button type="submit" class="btn btn-primary btn-block mb-4">
+			{% if op == 'edit'%}Update User{% else %}Add User
+			{% endif %}
+		</button>
+
+	</form>
 {% endblock content %}

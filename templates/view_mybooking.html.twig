@@ -1,40 +1,99 @@
 {% extends 'master.html.twig' %}
 
 {% block content %}
-    <h1>My booking</h1>
-    
-<h4>User Information</h4>
-<p>Name: {{ user.username }}</p>
-<p>Email: {{ user.email }}</p>
 
-<h4>Booking Information</h4>
-{% if bookings is empty %}
-    <p>No bookings found for this user.</p>
-{% else %}
-    <table>
-        <thead>
-            <tr>
-                <th>Package</th>
-                <th>Type</th>
-                <th>Location</th>
-                <th>Total</th>
-                <th>Booking Time<th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for booking in bookings %}
-                <tr>
-                    <td>{{ booking.name }}</td>
-                    <td>{{ booking.type }}</td>
-                    <td>{{ booking.location }}</td>
-                    <td>${{ booking.total }}</td>
-                    <td>{{ booking.placedTS }}</td>
-                    <td>
-                        <a href="/booking/delete/{{booking.id}}"><button type="button" class="btn btn-danger">Cancel</button></a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-{% endif %}
-{% endblock %}
+<h3>My booking</h3>
+
+<section class="vh-50" style="background-color: #f4f5f7;">
+	<div class="container py-5 h-100">
+		<div class="row d-flex justify-content-center align-items-center h-100">
+			<div class="col col-lg-8 mb-4 mb-lg-0">
+				<div class="card mb-3" style="border-radius: .5rem;">
+					<div class="row g-0">
+						<div class="col-md-4 gradient-custom text-center text-white" style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+							<img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" alt="Avatar" class="img-fluid my-5" style="width: 80px;"/>
+							<h5>{{user.username}}</h5>
+							<a href="/profile/edit">
+								<i class="far fa-edit mb-5"></i>
+							</a>
+						</div>
+						<div class="col-md-8">
+							<div class="card-body p-4">
+								<h6>User Information</h6>
+								<hr class="mt-0 mb-4">
+								<div class="row pt-1">
+									<div class="col-6 mb-3">
+										<h6>Username</h6>
+										<p class="text-muted">{{user.username}}</p>
+									</div>
+									<div class="col-6 mb-3">
+										<h6>Email</h6>
+										<p class="text-muted">{{user.email}}</p>
+									</div>
+								</div>
+								<h6>Booking Information</h6>
+								<hr class="mt-0 mb-4">
+								{% if bookings is empty %}
+									<p>No bookings found for this user.</p>
+								{% else %}
+									{% for booking in bookings %}
+										<div class="row pt-1">
+											<div class="col-6 mb-3">
+												<h6>Package</h6>
+												<p class="text-muted">{{ booking.name }}</p>
+											</div>
+											<div class="col-6 mb-3">
+												<h6>Location</h6>
+												<p class="text-muted">{{booking.location}}</p>
+											</div>
+											<div class="col-6 mb-3">
+												<h6>Total Price</h6>
+												<p class="text-muted">${{booking.total}}</p>
+											</div>
+											<div class="col-6 mb-3">
+												<h6>Booking Time</h6>
+												<p class="text-muted">{{booking.placedTS}}</p>
+											</div>
+
+											<div class="col-6 mb-3">
+												<a href="/booking/delete/{{booking.orderId}}" data-bs-toggle="modal" data-bs-target="#deleteModal">
+													<button type="button" class="btn btn-danger">Delete</button>
+												</a>
+											</div>
+										</div>
+
+
+										<div class="d-flex justify-content-start">
+
+											<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+															<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+														</div>
+														<div class="modal-body">
+															Are you sure you want to delete this booking?
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+															<form action="/booking/delete/{{booking.orderId}}" method="post">
+																<input type="hidden" name="_METHOD" value="DELETE">
+																<button type="submit" class="btn btn-danger">Delete</button>
+															</form>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<hr class="mt-0 mb-4">
+									{% endfor %}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>{% endif %}{% endblock %}

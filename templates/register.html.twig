@@ -2,65 +2,111 @@
 
 {% block addHead %}
 
-<!-- prevent to resubmit -->
-<script>
-      if (window.history.replaceState) {
-         window.history.replaceState(null, null, window.location.href);
-      }
-</script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-<script>
-//username
-$(document).ready(function() {
-    //email
-    $('input[name=username]').keyup(function() {
-        var username = $(this).val();
-        username = encodeURIComponent(username);
-        $('#usernameTaken').load("/isuserexist/" + username);
-    });
-
-    //email
-    $('input[name=email]').keyup(function() {
-        var email = $(this).val();
-        email = encodeURIComponent(email);
-        $('#emailTaken').load("/isemailexist/" + email);
-    });
+	<!-- prevent to resubmit -->
+	<script>
+		if (window.history.replaceState) {
+window.history.replaceState(null, null, window.location.href);
+}
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+	<script>
+		// username
+$(document).ready(function () { // email
+$('input[name=username]').keyup(function () {
+var username = $(this).val();
+username = encodeURIComponent(username);
+$('#usernameTaken').load("/isuserexist/" + username);
 });
 
-
-</script>
+// email
+$('input[name=email]').keyup(function () {
+var email = $(this).val();
+email = encodeURIComponent(email);
+$('#emailTaken').load("/isemailexist/" + email);
+});
+});
+	</script>
 
 {% endblock %}
 
 {% block content %}
 
-{% if errorList %}
-    <ul class="errorMessage">
-    {% for error in errorList %}
-        <li>{{error}}</li>
-    {% endfor %}
-    </ul>
-{% endif %}
+	{% if errorList %}
+		<ul class="errorMessage">
+			{% for error in errorList %}
+				<li>{{error}}</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
 
-<h1>New User Registration</h1>
-<form method="post">
-    <div class="form-group"> 
-    Username: <input type="text" name="username" value="{{v.username}}" placeholder="Enter your name"><br>
-    <span id="usernameTaken" class="errorMessage"></span>
-    </div>
-    <div class="form-group"> 
-    Password: <input type="password" name="password" placeholder="Enter your password"><br>
-    </div>
-    <div class="form-group"> 
-    Password (repeated): <input type="password" name="passwordrepeat" placeholder="Enter your password again"><br>
-    </div>
-    <div class="form-group"> 
-    Email: <input type="email" name="email" value="{{v.email}}" placeholder="Enter your email"><br> 
-    <span id="emailTaken" class="errorMessage"></span>
-    </div>
-    <div class="form-group"> 
-    Phone number: <input type="text" name="phoneno" value="{{v.phoneno}}" placeholder="Enter your phone number">  
-    </div> 
-    <button type="submit" class="btn btn-primary">Register</button>
-</form>
+	{# <h1>New User Registration</h1>
+																			<form method="post">
+																			    <div class="form-group"> 
+																			    Username: <input type="text" name="username" value="{{v.username}}" placeholder="Enter your name"><br>
+																			    <span id="usernameTaken" class="errorMessage"></span>
+																			    </div>
+																			    <div class="form-group"> 
+																			    Password: <input type="password" name="password" placeholder="Enter your password"><br>
+																			    </div>
+																			    <div class="form-group"> 
+																			    Password (repeated): <input type="password" name="passwordrepeat" placeholder="Enter your password again"><br>
+																			    </div>
+																			    <div class="form-group"> 
+																			    Email: <input type="email" name="email" value="{{v.email}}" placeholder="Enter your email"><br> 
+																			    <span id="emailTaken" class="errorMessage"></span>
+																			    </div>
+																			    <div class="form-group"> 
+																			    Phone number: <input type="text" name="phoneno" value="{{v.phoneno}}" placeholder="Enter your phone number">  
+																			    </div> 
+																			    <button type="submit" class="btn btn-primary">Register</button>
+																			</form> #}
+
+	<section class="h-100 h-custom" style="background-color: #8fc4b7;">
+		<div class="container py-5 h-100">
+			<div class="row d-flex justify-content-center align-items-center h-100">
+				<div class="col-lg-8 col-xl-6">
+					<div class="card rounded-3">
+						<img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp" class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;" alt="Sample photo">
+						<div class="card-body p-4 p-md-5">
+							<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Registration Info</h3>
+
+							<form class="px-md-2" method="post">
+
+								<div class="form-outline mb-4">
+									<input type="text" id="form3Example1q" class="form-control" name="username" value="{{v.username}}" placeholder="name"/>
+									<label class="form-label" for="form3Example1q">username</label>
+									<span id="usernameTaken" class="errorMessage"></span>
+								</div>
+
+								<div class="form-outline mb-4">
+									<input type="password" id="form3Example2q" class="form-control" name="password" value="{{v.password}}" placeholder="password"/>
+									<label class="form-label" for="form3Example2q">password</label>
+								</div>
+
+								<div class="form-outline mb-4">
+									<input type="password" id="form3Example3q" class="form-control" name="passwordrepeat" placeholder="password again"/>
+									<label class="form-label" for="form3Example3q">password(repeat)</label>
+								</div>
+
+								<div class="form-outline mb-4">
+									<input type="email" id="form3Example4q" class="form-control" name="email" value="{{v.email}}" placeholder="email"/>
+									<label class="form-label" for="form3Example4q">email</label>
+									<span id="emailTaken" class="errorMessage"></span>
+								</div>
+
+								<div class="form-outline mb-4">
+									<input type="text" id="form3Example5q" class="form-control" name="phoneno" value="{{v.phoneno}}" placeholder="phoneno"/>
+									<label class=" form-label" for=" form3example5q">phone number</label>
+								</div>
+
+								<button type="submit" class="btn btn-success btn-lg mb-1">Submit</button>
+
+							</form>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 {% endblock content %}
