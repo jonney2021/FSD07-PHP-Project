@@ -64,6 +64,7 @@ $errorMiddleware = $app->addErrorMiddleware(true, true, true);
 // All templates will be given userSession variable
 $container->get('view')->getEnvironment()->addGlobal('userSession', $_SESSION['user'] ?? null);
 $container->get('view')->getEnvironment()->addGlobal('flashMessage', getAndClearFlashMessage());
+$container->get('view')->getEnvironment()->addGlobal('adminSession', $_SESSION['admin'] ?? null);
 
 
 // LOGIN / LOGOUT USING FLASH MESSAGES TO CONFIRM THE ACTION

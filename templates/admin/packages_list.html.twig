@@ -1,32 +1,49 @@
 {% extends "admin/master.html.twig" %}
+{% block addHead %}
+	<script>
+		$(document).ready(function () {
+$('#example').DataTable();
+});
+	</script>
+{% endblock %}
 
 {% block content %}
-    <h3>Packages List</h3>
-    <table cellpadding="10">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Location</th>
-            <th>Price</th>
-            <th>Details</th>
-        </tr>
-       
-        {% for package in packages %}
-        <tr>
-            <td>{{package.id}}</td>
-            <td>{{package.name}}</td>
-            <td>{{package.type}}</td>
-            <td>{{package.location}}</td>
-            <td>{{package.price}}</td>
-            <td>{{package.details}}</td>
-            <td>
-                <a href="/admin/packages/edit/{{package.id}}"><button type="button" class="btn btn-success">edit</button></a>
-                <a href="/admin/packages/delete/{{package.id}}"><button type="button" class="btn btn-danger">delete</button></a>
-            </td>
-        </tr>
-        {% else %}
-        <tr><em>No package found</em></tr>
-        {% endfor %}       
-    </table>
+	<h3>Packages List</h3>
+	<table id="example" class="table table-striped" style="width:100%">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Type</th>
+				<th>Location</th>
+				<th>Price</th>
+				<th>Details</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for package in packages %}
+				<tr>
+					<td>{{package.id}}</td>
+					<td>{{package.name}}</td>
+					<td>{{package.type}}</td>
+					<td>{{package.location}}</td>
+					<td>{{package.price}}</td>
+					<td>{{package.details}}</td>
+					<td>
+						<a href="/admin/packages/edit/{{package.id}}">
+							<button type="button" class="btn btn-success">edit</button>
+						</a>
+						<a href="/admin/packages/delete/{{package.id}}">
+							<button type="button" class="btn btn-danger">delete</button>
+						</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<em>No package found</em>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 {% endblock %}

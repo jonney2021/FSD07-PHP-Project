@@ -8,6 +8,10 @@ body {
   max-width: 1170px;
 }
 
+a {
+  text-decoration: none;
+}
+
 #centeredContent {
   margin: 0 auto;
   padding: 20px;

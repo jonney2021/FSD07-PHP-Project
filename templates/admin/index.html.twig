@@ -1,17 +1,65 @@
 {% extends "admin/master.html.twig" %}
 
-{% block title %}Admin dashboard{% endblock %}
+{% block title %}Admin Dashboard
+{% endblock %}
 
 {% block content %}
-<h3>Admin main page</h3>
 
-{# {% if session.admin %}
-    <p>Welcome {{ session.admin.username }}!</p>
-    <a href="/admin/logout">Logout</a>
-    <p><a href="/admin/users/list">Manage Users</a></p> #}
-{# {% else %}
-    <a href="/admin/login">Login</a> #}
-{# {% endif %} #}
-<p><a href="/admin/users/list">Manage Users</a></p>
+	<div id="layoutSidenav_content">
+		<main>
+			<div class="container-fluid px-4">
+				<h1 class="mt-4">Dashboard</h1>
+				<ol class="breadcrumb mb-4">
+					<li class="breadcrumb-item active">Dashboard</li>
+				</ol>
+				<div class="row">
+					<div class="col-xl-4 col-md-6">
+						<div class="card bg-primary text-white mb-4">
+							<div class="card-body">User information</div>
+							<div class="card-footer d-flex align-items-center justify-content-between">
+								<a class="small text-white stretched-link" href="/admin/users/list">View Details</a>
+								<div class="small text-white">
+									<i class="fas fa-angle-right"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-4 col-md-6">
+						<div class="card bg-warning text-white mb-4">
+							<div class="card-body">Package information</div>
+							<div class="card-footer d-flex align-items-center justify-content-between">
+								<a class="small text-white stretched-link" href="/admin/packages/list">View Details</a>
+								<div class="small text-white">
+									<i class="fas fa-angle-right"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-4 col-md-6">
+						<div class="card bg-success text-white mb-4">
+							<div class="card-body">Booking information</div>
+							<div class="card-footer d-flex align-items-center justify-content-between">
+								<a class="small text-white stretched-link" href="#">View Details</a>
+								<div class="small text-white">
+									<i class="fas fa-angle-right"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
-{% endblock content %}
+
+				<div class="card mb-4">
+					<div class="card-header">
+						<i class="fas fa-table me-1"></i>
+						User List
+					</div>
+					<div class="card-body">
+						<table id="example"></table>
+					</div>
+				</div>
+			</div>
+		</main>
+
+	</div>
+</div>{% endblock content %}

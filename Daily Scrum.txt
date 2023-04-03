@@ -114,3 +114,15 @@
 - test show package list
 - test user can book a package
 - test user can view tour package list
+
+
+2023/04/03  Yeming
+1. Done since last scrum
+- implemented user can cancel booking
+- implemented user can search tour package
+- added flash Message
+- added some styles, bootstrap form and modal when user deleted booking information
+2. To do until next scrum
+- add admin can manage booking
+- admin dashboard
+- add some css styles to beautify pages

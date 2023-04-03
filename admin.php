@@ -52,7 +52,7 @@ $app->get('/admin/logout', function (Request $request, Response $response) {
 
 //admin dashboard
 $app->get('/admin', function ($request, $response, $args) {
-    return $this->get('view')->render($response, 'admin/master.html.twig', ['session' => $_SESSION]);
+    return $this->get('view')->render($response, 'admin/index.html.twig', ['session' => $_SESSION]);
 });
 
 // users CRUD operations handling
