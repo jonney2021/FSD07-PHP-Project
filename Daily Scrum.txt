@@ -140,6 +140,16 @@
 - test Admin can manage tour packages
 - test User can search tour package
 
+2023/04/04  Yeming
+1. Done since last scrum
+- added admin can manage booking
+- added admin dashboard
+- added some css styles to beautify pages
+2. To do until next scrum
+- add user can pay the booking
+- integration project
+- prepare presentation
+
 2023/04/04  Yuanbo
 1. Done since last scrum
 - done add some functions for homepage
@@ -153,6 +163,7 @@
 - prepare presentation
 - test Admin can manage booking
 - test the whole project again
+
 
 
 

@@ -32,54 +32,51 @@ window.history.replaceState(null, null, window.location.href);
 							<div class="row photos">
 								{% for image in images %}
 									<div class="col-sm-6 col-md-4 col-lg-3 item">
-										<a href="assets/img/desk.jpg" data-lightbox="photos"><img class="img-fluid w-100 shadow-1-strong rounded mb-4" src="/{{ image.imageUrl }}"></a>
-									</div>
-								{% endfor %}
-							</div>
+										<img class="img-fluid w-100 shadow-1-strong rounded mb-4" src="/{{ image.imageUrl }}"></a>
+								</div>
+							{% endfor %}
 						</div>
 					</div>
+				</div>
 
-					<div class="col-md-8">
-						<div class="p-5 py-3">
-							<div class="row mt-2">
-								<div class="col-md-6">
-									<h4>{{ package.name }}</h4>
-								</div>
+				<div class="col-md-8">
+					<div class="p-5 py-3">
+						<div class="row mt-2">
+							<div class="col-md-6">
+								<h4>{{ package.name }}</h4>
 							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<p>Description:
-										{{ package.details }}</p>
-								</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<p>Description:
+									{{ package.details }}</p>
 							</div>
-							<div class="row mt-2">
-								<div class="col-md-6">
-									<h6>Price: ${{ package.price }}</h6>
-								</div>
+						</div>
+						<div class="row mt-2">
+							<div class="col-md-6">
+								<h6>Price: ${{ package.price }}</h6>
 							</div>
+						</div>
 
-							<div class="row mt-2">
-								<div class="col-md-6">User Name:
-									<input type="text" class="form-control" placeholder="name" value="{{v.username}}" name="name"></div>
-							</div>
+						<div class="row mt-2">
+							<div class="col-md-6">User Name:
+								<input type="text" class="form-control" placeholder="name" value="{{v.username}}" name="name"></div>
+						</div>
 
-							<div class="row mt-3">
-								<div class="col-md-6">Email:
-									<input type="email" class="form-control" placeholder="Email" value="{{v.email}}" name="email"></div>
-							</div>
-							<div class="row mt-3">
-								<div class="col-md-6">Phone Number:
-									<input type="text" class="form-control" placeholder="phone number" value="{{v.phoneNo}}" name="phone"></div>
-							</div>
-							<div class="mt-5 text-right">
-								<button class="btn btn-primary profile-button" type="submit">Book Now</button>
-							</div>
-
+						<div class="row mt-3">
+							<div class="col-md-6">Email:
+								<input type="email" class="form-control" placeholder="Email" value="{{v.email}}" name="email"></div>
+						</div>
+						<div class="row mt-3">
+							<div class="col-md-6">Phone Number:
+								<input type="text" class="form-control" placeholder="phone number" value="{{v.phoneNo}}" name="phone"></div>
+						</div>
+						<div class="mt-5 text-right">
+							<button class="btn btn-primary profile-button" type="submit">Book Now</button>
 						</div>
 					</div>
-				</form>
-			</div>
+				</div>
+			</form>
 		</div>
-	</section>
-
-{% endblock content %}
+	</div>
+</section>{% endblock content %}

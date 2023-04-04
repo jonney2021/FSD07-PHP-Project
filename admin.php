@@ -476,3 +476,14 @@ $app->post('/admin/packages/delete/{id:[0-9]+}', function ($request, $response, 
     setFlashMessage("Package deleted");
     return $this->get('view')->render($response, 'admin/package_delete_success.html.twig');
 });
+
+// Show booking list
+$app->get('/admin/booking/list', function ($request, $response, $args) {
+    $results = DB::query("
+    SELECT o.id as bookingId, o.total as totalPrice, o.placedTS as bookingTime, u.username as username, u.email as email, t.name as packageName 
+    FROM orders o
+    left JOIN users u ON o.userId = u.id
+    left JOIN tourpackages t ON t.id = o.tourPackageId;
+");
+    return $this->get('view')->render($response, 'admin/booking_list.html.twig', ['results' => $results]);
+});

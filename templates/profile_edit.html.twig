@@ -27,13 +27,13 @@ window.history.replaceState(null, null, window.location.href);
 
 	<section class="vh-50" style="background-color: #f4f5f7;">
 		<div class="container rounded mt-5">
-			<div class="row">
-				<form method="post">
-					<div class="col-md-4">
+			<div class="row d-flex justify-content-center align-items-center h-100">
+				<form method="post" class="col col-lg-6 mb-4 mb-lg-0">
+					<div class="col-md-10">
 						<div class="d-flex flex-column align-items-center text-center p-3 py-3"><img class="rounded-circle mt-5" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" width="90"><span class="font-weight-bold">{{v.username}}</span>
 						</div>
 					</div>
-					<div class="col-md-8">
+					<div class="col-md-12">
 						<div class="p-5 py-3">
 							<div class="d-flex justify-content-between align-items-center mb-3">
 								<div class="d-flex flex-row align-items-center back">
@@ -45,21 +45,21 @@ window.history.replaceState(null, null, window.location.href);
 							</div>
 
 							<div class="row mt-2">
-								<div class="col-md-6"><input type="text" class="form-control" placeholder="name" value="{{v.username}}" name="username"></div>
+								<div class="col-md-10"><input type="text" class="form-control" placeholder="name" value="{{v.username}}" name="username"></div>
 							</div>
 							<div class="row mt-3">
-								<div class="col-md-6"><input type="password" class="form-control" placeholder="passwrod" name="password"></div>
+								<div class="col-md-10"><input type="password" class="form-control" placeholder="passwrod" name="password"></div>
 
 							</div>
 							<div class="row mt-3">
-								<div class="col-md-6"><input type="password" class="form-control" placeholder="password repeat" name="passwordrepeat"></div>
+								<div class="col-md-10"><input type="password" class="form-control" placeholder="password repeat" name="passwordrepeat"></div>
 
 							</div>
 							<div class="row mt-3">
-								<div class="col-md-6"><input type="email" class="form-control" placeholder="Email" value="{{v.email}}" name="email"></div>
+								<div class="col-md-10"><input type="email" class="form-control" placeholder="Email" value="{{v.email}}" name="email"></div>
 							</div>
 							<div class="row mt-3">
-								<div class="col-md-6"><input type="text" class="form-control" placeholder="phone number" value="{{v.phoneNo}}" name="phoneno"></div>
+								<div class="col-md-10"><input type="text" class="form-control" placeholder="phone number" value="{{v.phoneNo}}" name="phoneno"></div>
 							</div>
 							<div class="mt-5 text-right">
 								<button class="btn btn-primary profile-button" type="submit">Save Profile</button>
