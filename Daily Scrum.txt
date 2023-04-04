@@ -150,6 +150,21 @@
 - integration project
 - prepare presentation
 
+2023/04/04  Yuanbo
+1. Done since last scrum
+- done add some functions for homepage
+- done beautify the homepage
+- done test User can cancel the booking
+- done test User can view my booking
+- done test Admin can manage tour packages
+- done test User can search tour package
+2. To do until next scrum
+- modify the front-end page
+- prepare presentation
+- test Admin can manage booking
+- test the whole project again
+
+
 
 
 
