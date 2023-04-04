@@ -472,6 +472,7 @@ $app->get('/admin/packages/delete/{id:[0-9]+}', function ($request, $response, $
 });
 
 $app->post('/admin/packages/delete/{id:[0-9]+}', function ($request, $response, $args) {
+    DB::delete('images', 'tourPackageId=%i', $args['id']);
     DB::delete('tourpackages', "id=%i", $args['id']);
     setFlashMessage("Package deleted");
     return $this->get('view')->render($response, 'admin/package_delete_success.html.twig');
