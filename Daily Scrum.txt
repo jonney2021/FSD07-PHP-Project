@@ -107,14 +107,12 @@
 - done search web materials and modify them to adjust to our website
 - done admin can manage users
 - done verify admin authenticati
-
 2. To do until next scrum
 - add some styles to our website
 - test Admin can manage tour packages
 - test show package list
 - test user can book a package
 - test user can view tour package list
-
 
 2023/04/03  Yeming
 1. Done since last scrum
@@ -127,6 +125,21 @@
 - admin dashboard
 - add some css styles to beautify pages
 
+2023/04/03  Yuanbo
+1. Done since last scrum
+- done add some styles to homepage
+- done test Admin can manage tour packages
+- done test show package list
+- done test user can book a package
+- done test user can view tour package list
+2. To do until next scrum
+- add some functions for homepage
+- beautify the homepage
+- test User can cancel the booking
+- test User can view my booking
+- test Admin can manage tour packages
+- test User can search tour package
+
 2023/04/04  Yeming
 1. Done since last scrum
 - added admin can manage booking
@@ -136,3 +149,7 @@
 - add user can pay the booking
 - integration project
 - prepare presentation
+
+
+
+
