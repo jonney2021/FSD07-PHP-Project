@@ -367,7 +367,7 @@ $app->post('/packages/{id:[0-9]+}/book', function ($request, $response, $args) {
 
 // paypal change order status
 $app->post('/update-order-status', function ($request, $response, $args) {
-    // Get the order ID and payment ID from the request body
+    // Get the order ID from the request body
     $body = json_decode($request->getBody());
     $orderId = $body->orderId;
 
