@@ -1,0 +1,42 @@
+{% extends "admin/master.html.twig" %}
+{% block addHead %}
+	<script>
+		$(document).ready(function () {
+$('#example').DataTable();
+});
+	</script>
+{% endblock %}
+
+{% block content %}
+	<h3>Booking List</h3>
+	<table id="example" class="table table-striped" style="width:100%">
+		<thead>
+			<tr>
+				<th>BookingId</th>
+				<th>Total Price</th>
+				<th>Booking Time</th>
+				<th>User Name</th>
+				<th>User Email</th>
+				<th>Package Name</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for package in results %}
+				<tr>
+					<td>{{package.bookingId}}</td>
+					<td>$
+						{{package.totalPrice}}</td>
+					<td>{{package.bookingTime}}</td>
+					<td>{{package.username}}</td>
+					<td>{{package.email}}</td>
+					<td>{{package.packageName}}</td>
+
+				</tr>
+			{% else %}
+				<tr>
+					<em>No package found</em>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

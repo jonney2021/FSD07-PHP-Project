@@ -126,3 +126,13 @@
 - add admin can manage booking
 - admin dashboard
 - add some css styles to beautify pages
+
+2023/04/04  Yeming
+1. Done since last scrum
+- added admin can manage booking
+- added admin dashboard
+- added some css styles to beautify pages
+2. To do until next scrum
+- add user can pay the booking
+- integration project
+- prepare presentation

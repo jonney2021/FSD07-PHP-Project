@@ -42,17 +42,65 @@ window.history.replaceState(null, null, window.location.href);
 							</div>
 						</div>
 						<div class="row my-4">
-							<div class="col-md-4 offset-md-8 col-lg-3 offset-lg-9">
-								<p class="lead fw-bold mb-0" style="color: #f37a27;">$
+							<div class="col-md-6 offset-md-6 col-lg-6 offset-lg-6">
+								<p class="lead fw-bold mb-0" style="color: #f37a27;">Total Price: $
 									{{booking.total}}</p>
 							</div>
 						</div>
-						<p class="mt-4 pt-2 mb-0">Want any help?
-							<a href="#!" style="color: #f37a27;">Please contact	us</a>
-						</p>
+						<div class="row">
+							<div
+								class="mt-4 p-5 pt-2 mb-0 col-md-8">
+								<!-- Set up a container element for the button -->
+								<div id="paypal-button-container" type="submit"></div>
+							</div>
+							<div class="mt-4 p-5 pt-2 mb-0 col-md-4">
+								<a href="/" style="color: #f37a27;">Back to home</a>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</section>{% endblock %}
+</section>
+<script>
+	// create paypal button
+paypal.Buttons({
+style: {
+color: 'blue',
+shape: 'pill'
+},
+// create order construct
+createOrder: function (data, actions) {
+return actions.order.create({
+purchase_units: [
+{
+amount: {
+value:'{{ package.price }}'
+}
+}
+]
+})
+},
+
+onApprove: function (data, actions) {
+return actions.order.capture().then(function (details) {
+console.log(details);
+
+// Call your server-side route to update the status field in the orders table
+fetch('/update-order-status', {
+method: 'POST',
+body: JSON.stringify(
+{orderId: '{{ booking.id }}', paymentId: details.id}
+),
+headers: {
+'Content-Type': 'application/json'
+}
+}).then(function (response) { // Redirect to the home page
+window.location.href = '/';
+});
+
+})
+}
+}).render('#paypal-button-container');
+</script>{% endblock %}

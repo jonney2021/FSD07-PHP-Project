@@ -6,6 +6,8 @@ use Slim\Factory\AppFactory;
 use DI\Container;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
+use PayPalCheckoutSdk\Orders\OrdersCaptureRequest;
+use PayPalCheckoutSdk\Orders\OrdersGetRequest;
 
 require_once 'init.php';
 
@@ -356,12 +358,24 @@ $app->post('/packages/{id:[0-9]+}/book', function ($request, $response, $args) {
         // fetch the booking id
         $bookingRecord = DB::queryFirstRow("SELECT * FROM orders ORDER BY id DESC");
         $bookingId = $bookingRecord['id'];
-        // $bookingTotal = $bookingRecord['total'];
-        // $package = DB::query("SELECT t.name as packageName,t.price as packagePrice FROM tourpackages t inner join orders o on o.tourPackageId = t.id where o.id=%i", $bookingId);
+
         setFlashMessage("Booking completed");
         // render the booking confirmation template
         return $this->get('view')->render($response, 'booking_confirmation.html.twig', ['booking' => $bookingRecord, 'package' => $package]);
     }
+});
+
+// paypal change order status
+$app->post('/update-order-status', function ($request, $response, $args) {
+    // Get the order ID and payment ID from the request body
+    $body = json_decode($request->getBody());
+    $orderId = $body->orderId;
+
+    DB::update('orders', [
+        'status' => 'paid'
+    ], 'id=%s', $orderId);
+    setFlashMessage("Payment completed");
+    return $response->getBody();
 });
 
 // user view my booking list
@@ -374,7 +388,7 @@ $app->get('/booking', function ($request, $response, $args) {
     $id = $_SESSION['user']['id'];
     $user = DB::queryFirstRow("SELECT * FROM users WHERE id = %i", $id);
     // Retrieve booking information for the user, along with the associated package information
-    $bookings = DB::query("SELECT o.id as orderId, t.*, o.* FROM  orders o inner join tourpackages t on o.tourPackageId = t.id where o.userid =%i", $id);
+    $bookings = DB::query("SELECT o.id as orderId, t.*, o.* FROM  orders o inner join tourpackages t on o.tourPackageId = t.id where o.userid =%i order by o.placedTS desc", $id);
     return $this->get('view')->render($response, 'view_mybooking.html.twig', ['user' => $user, 'bookings' => $bookings]);
 });
 
