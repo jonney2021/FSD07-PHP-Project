@@ -39,42 +39,20 @@ $('#emailTaken').load("/isemailexist/" + email);
 		</ul>
 	{% endif %}
 
-	{# <h1>New User Registration</h1>
-																			<form method="post">
-																			    <div class="form-group"> 
-																			    Username: <input type="text" name="username" value="{{v.username}}" placeholder="Enter your name"><br>
-																			    <span id="usernameTaken" class="errorMessage"></span>
-																			    </div>
-																			    <div class="form-group"> 
-																			    Password: <input type="password" name="password" placeholder="Enter your password"><br>
-																			    </div>
-																			    <div class="form-group"> 
-																			    Password (repeated): <input type="password" name="passwordrepeat" placeholder="Enter your password again"><br>
-																			    </div>
-																			    <div class="form-group"> 
-																			    Email: <input type="email" name="email" value="{{v.email}}" placeholder="Enter your email"><br> 
-																			    <span id="emailTaken" class="errorMessage"></span>
-																			    </div>
-																			    <div class="form-group"> 
-																			    Phone number: <input type="text" name="phoneno" value="{{v.phoneno}}" placeholder="Enter your phone number">  
-																			    </div> 
-																			    <button type="submit" class="btn btn-primary">Register</button>
-																			</form> #}
-
 	{# <section class="h-100 h-custom" style="background-color: #8fc4b7;"> #}
 	<section class="h-100 h-custom" style="background-color:  #0d6efd;">
 		<div class="container py-5 h-100">
 			<div class="row d-flex justify-content-center align-items-center h-100">
 				<div class="col-lg-8 col-xl-6">
 					<div class="card rounded-3">
-						<img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp" class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;" alt="Sample photo">
+						<img src="images/img4.webp" class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;" alt="Sample photo">
 						<div class="card-body p-4 p-md-5">
 							<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Welcome To Our Registration</h3>
 
 							<form class="px-md-2" method="post">
 
 								<div class="form-outline mb-4">
-								<label class="form-label" for="form3Example1q">Username</label>
+									<label class="form-label" for="form3Example1q">Username</label>
 									<input type="text" id="form3Example1q" class="form-control" name="username" value="{{v.username}}" placeholder="username"/>
 									<span id="usernameTaken" class="errorMessage"></span>
 								</div>
@@ -82,13 +60,13 @@ $('#emailTaken').load("/isemailexist/" + email);
 								<div class="form-outline mb-4">
 									<label class="form-label" for="form3Example2q">Password</label>
 									<input type="password" id="form3Example2q" class="form-control" name="password" value="{{v.password}}" placeholder="password"/>
-									
+
 								</div>
 
 								<div class="form-outline mb-4">
 									<label class="form-label" for="form3Example3q">Password(repeat)</label>
 									<input type="password" id="form3Example3q" class="form-control" name="passwordrepeat" placeholder="password again"/>
-									
+
 								</div>
 
 								<div class="form-outline mb-4">
@@ -100,7 +78,7 @@ $('#emailTaken').load("/isemailexist/" + email);
 								<div class="form-outline mb-4">
 									<label class=" form-label" for=" form3example5q">Phone Number</label>
 									<input type="text" id="form3Example5q" class="form-control" name="phoneno" value="{{v.phoneno}}" placeholder="phoneno"/>
-									
+
 								</div>
 
 								<button type="submit" class="btn btn-primary btn-lg mb-1">Submit</button>
