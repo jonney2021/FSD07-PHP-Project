@@ -61,14 +61,14 @@ $app->add(TwigMiddleware::createFromContainer($app));
 
 $errorMiddleware = $app->addErrorMiddleware(true, true, true);
 
-// All templates will be given userSession variable
+// All templates will be given userSession and adminSession variable
 $container->get('view')->getEnvironment()->addGlobal('userSession', $_SESSION['user'] ?? null);
-$container->get('view')->getEnvironment()->addGlobal('flashMessage', getAndClearFlashMessage());
 $container->get('view')->getEnvironment()->addGlobal('adminSession', $_SESSION['admin'] ?? null);
 
+// add global variable in order for all pages to use
+$container->get('view')->getEnvironment()->addGlobal('flashMessage', getAndClearFlashMessage());
 
-// LOGIN / LOGOUT USING FLASH MESSAGES TO CONFIRM THE ACTION
-
+// Login/Logout using falsh messages to confirm the action
 function setFlashMessage($message)
 {
     $_SESSION['flashMessage'] = $message;

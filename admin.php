@@ -225,7 +225,7 @@ function startsWith($string, $startString)
     $len = strlen($startString);
     return (substr($string, 0, $len) === $startString);
 }
-// Attach middleware that verifies only admin can access /admin... URLs
+// Use middleware that verifies only admin can access /admin... URLs
 $app->add(function ($request, $handler) {
     $url = $request->getUri()->getPath();
     if (startsWith($url, "/admin")) {
